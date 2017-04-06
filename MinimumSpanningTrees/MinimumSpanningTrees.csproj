@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adjacency.cs" />
+    <Compile Include="Edge.cs" />
+    <Compile Include="KruskalsAlgorithm.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="PrimsAlgorithm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
