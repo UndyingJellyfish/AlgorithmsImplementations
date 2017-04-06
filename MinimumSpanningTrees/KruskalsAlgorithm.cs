@@ -8,6 +8,23 @@ namespace MinimumSpanningTrees
 {
     class KruskalsAlgorithm
     {
+        private static int[,] weightedAdjacencyMatrix(Adjacency adj)
+        {
+            int dims = adj.n;
+            int[,] adjancencies = new int[dims, dims];
+
+            for (int i = 0; i < dims; i++)
+            {
+                for (int j = 0; j < dims; j++)
+                {
+                    adjancencies[i, j] = adj.getWeight(i, j);
+                }
+            }
+
+
+            return adjancencies;
+        }
+
 
         private static void quickSort(int p, int r, int ALength, Edge[] edges)
         {

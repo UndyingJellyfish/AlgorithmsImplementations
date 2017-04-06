@@ -9,7 +9,8 @@ namespace MinimumSpanningTrees
     class Adjacency
     {
         private bool[,] matrix;
-        private int n;
+
+        public int n { get; }
         private int[,] weight;
 
         public Adjacency(int n)
@@ -47,5 +48,6 @@ namespace MinimumSpanningTrees
         {
             this.weight[i, j] = weight;
         }
+        
     }
 }
