@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MinimumSpanningTrees
 {
-    class Adjacency
+    public class Adjacency
     {
         private bool[,] matrix;
 

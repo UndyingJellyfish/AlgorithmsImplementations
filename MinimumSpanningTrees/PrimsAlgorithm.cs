@@ -28,7 +28,7 @@ namespace MinimumSpanningTrees
 
         // A utility function to print the constructed MST stored in
         // parent[]
-        public static void printMST(int[] parent, int n, int[,] graph, int V)
+        private static void printMST(int[] parent, int n, int[,] graph, int V)
         {
             Console.WriteLine("Edge   Weight");
             for (int i = 1; i < V; i++)

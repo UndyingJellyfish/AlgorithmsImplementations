@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MinimumSpanningTrees
 {
-    class Edge
+    public class Edge
     {
         public Edge()
         {

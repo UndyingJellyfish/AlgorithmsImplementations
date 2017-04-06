@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MinimumSpanningTrees
 {
-    class KruskalsAlgorithm
+    public class KruskalsAlgorithm
     {
-        private static int[,] weightedAdjacencyMatrix(Adjacency adj)
+        private static int[,] createWeightedAdjacencyMatrix(Adjacency adj)
         {
             int dims = adj.n;
             int[,] adjancencies = new int[dims, dims];
@@ -18,6 +18,12 @@ namespace MinimumSpanningTrees
                 for (int j = 0; j < dims; j++)
                 {
                     adjancencies[i, j] = adj.getWeight(i, j);
+                    if (!adj.getElementAt(i,j))
+                    {
+                        adjancencies[i, j] = int.MaxValue;
+                    }
+                    
+                    
                 }
             }
 
@@ -58,7 +64,7 @@ namespace MinimumSpanningTrees
                 quickSort(i, r, ALength, edges);
         }
 
-        public static Pair[] MSTKruskal(int n, Adjacency adjacency)
+        public static Pair[] kruskalMST(int n, Adjacency adjacency)
         {
             bool uFound, vFound;
             int i, j, k, l, m, u, v;
@@ -161,19 +167,27 @@ namespace MinimumSpanningTrees
                 }
             }
 
+
             return A;
         }
 
-        public static void calculateAndPrintKruskal(Pair[] kruskalResult)
+        public static void printKruskalMST(Pair[] kruskalResult)
         {
             for (int i = 0; i < kruskalResult.Length; i++)
             {
                 if (kruskalResult[i] != null)
                 {
-                    Console.WriteLine(kruskalResult[i].ToString() + "\r\n");
+                    Console.WriteLine(kruskalResult[i].ToString() + "\r");
                 }
             }
         }
+
+        public static void calculateAndPrintKruskalMST(int n, Adjacency adjacency, out Pair[] pairs)
+        {
+            pairs = kruskalMST(n, adjacency);
+            printKruskalMST(pairs);
+        }
+
 
 
     }
