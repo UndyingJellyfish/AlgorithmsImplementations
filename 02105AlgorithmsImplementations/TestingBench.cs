@@ -7,19 +7,10 @@ using System.Threading.Tasks;
 
 namespace _MainNamespace
 {
-    class Program
+    class TestingBench
     {
         static void Main(string[] args)
         {
-            /* Let us create the following graph
-               2    3
-            (0)--(1)--(2)
-            |    / \   |
-           6|  8/   \5 |7
-            |  /     \ |
-            (3)-------(4)
-                 9          
-            */
 
             int V = 5;
              
