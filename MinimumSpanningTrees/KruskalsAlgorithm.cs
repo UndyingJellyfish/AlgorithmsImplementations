@@ -22,12 +22,8 @@ namespace MinimumSpanningTrees
                     {
                         adjancencies[i, j] = int.MaxValue;
                     }
-                    
-                    
                 }
             }
-
-
             return adjancencies;
         }
 
@@ -187,8 +183,5 @@ namespace MinimumSpanningTrees
             pairs = kruskalMST(n, adjacency);
             printKruskalMST(pairs);
         }
-
-
-
     }
 }

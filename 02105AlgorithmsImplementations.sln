@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_MainNamespace", "02105AlgorithmsImplementations\_MainNamespace.csproj", "{4EA58980-6071-4464-90B4-9820C50A6F99}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "DataStructures\DataStructures.csproj", "{418D964C-CBAA-443C-98A4-5F39AAA01B6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingAlgorithms", "SortingAlgorithms\SortingAlgorithms.csproj", "{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvilAlgorithmsFromHell", "EvilAlgorithmsFromHell\EvilAlgorithmsFromHell.csproj", "{7D2B1752-0183-4574-AA97-4CD522AB669C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2B1752-0183-4574-AA97-4CD522AB669C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2B1752-0183-4574-AA97-4CD522AB669C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2B1752-0183-4574-AA97-4CD522AB669C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D2B1752-0183-4574-AA97-4CD522AB669C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
