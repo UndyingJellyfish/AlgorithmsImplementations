@@ -7,35 +7,41 @@ namespace EvilAlgorithmsFromHell
 {
     public class AckermannsFunction
     {
+        
         private static void Main(string[] args)
         {
             var totalTimeSpent = new TimeSpan();
             var sw = new Stopwatch();
 
-            var timesToRun = 1850;
+            var timesToRun = 1000;
 
             for (var i = 0; i < timesToRun; i++)
             {
                 Console.WriteLine("Run number {0}", i + 1);
                 sw.Start();
-                Ackermann(4, 2);
+                Ackermann(4, 2); // don't even think about running A(4,3), it's like a bajillion decimals
                 sw.Stop();
                 totalTimeSpent += sw.Elapsed;
                 sw.Reset();
+                if (i % 250 == 0)
+                {
+                    GC.Collect();
+                }
             }
             var totalMilliseconds = totalTimeSpent.TotalMilliseconds;
             var averageTimeNanoseconds = (totalMilliseconds * 1000) / timesToRun;
 
-            var averageTimeString = String.Format("{0:n1}", averageTimeNanoseconds);
-            var totalTimeString = String.Format("{0:n0}", totalMilliseconds);
-
-
+            var averageTimeString = $"{averageTimeNanoseconds:n1}";
+            var totalTimeString = $"{totalMilliseconds:n0}";
             
             Console.WriteLine("Calculation of Ackerman(4,2) took {0} nanoseconds average over {1} runs.\nTotal time spent was {2} milliseconds",
                 averageTimeString, timesToRun, totalTimeString);
 
+            //Console.WriteLine(Ackermann(4, 2) == BigInteger.Pow(2, 65536)-3); // known value of Ackerman for testing purposes
+            
             Console.ReadLine();
         }
+        
 
         public static void PrintAckermann(int m, int n)
         {
@@ -67,7 +73,6 @@ namespace EvilAlgorithmsFromHell
                 {
                     n = n + 2;
                 }
-                
                 else if (m == 2) //without this the code won't even run; throws out of memory excpetions on stack at 1.5 GB RAM usage
                 {
                     n = n * 2 + 3;
@@ -75,6 +80,10 @@ namespace EvilAlgorithmsFromHell
                 else if (m == 3) // makes 10^3 increase in speed compared to having special cases for only 0, 1 and 2
                 {
                     n = BigInteger.Pow(2, (int) n + 3);
+                }
+                else if (m == 4) // leads to a 10 times increase, even if the helper method is resursive...
+                {
+                    n = RecursiveExponent(2, 2, (int)n+3) - 3;
                 }
                 
                 // non-standard permutations of Ackermann
@@ -94,31 +103,14 @@ namespace EvilAlgorithmsFromHell
             return n;
         }
 
-        public static BigInteger StandardAckermann(BigInteger m, BigInteger n)
+        private static BigInteger RecursiveExponent(BigInteger x, BigInteger n, int times)
         {
-            if (m == 0 && n == 0) return 1;
-            if (m == 0 && n == 1) return 2;
-            if (m == 0 && n == 2) return 3;
-            if (m == 0 && n == 3) return 4;
-            if (m == 0 && n == 4) return 5;
-            if (m == 1 && n == 0) return 2;
-            if (m == 1 && n == 1) return 3;
-            if (m == 1 && n == 2) return 4;
-            if (m == 1 && n == 3) return 5;
-            if (m == 1 && n == 4) return 6;
-            if (m == 2 && n == 0) return 3;
-            if (m == 2 && n == 1) return 5;
-            if (m == 2 && n == 2) return 7;
-            if (m == 2 && n == 3) return 9;
-            if (m == 2 && n == 4) return 11;
-            if (m == 3 && n == 0) return 5;
-            if (m == 3 && n == 1) return 13;
-            if (m == 3 && n == 2) return 29;
-            if (m == 3 && n == 3) return 61;
-            if (m == 3 && n == 4) return 125;
-
-
-            return 0;
+            if (times > 1)
+            {
+                n = RecursiveExponent(n, n, times - 1);
+                x = BigInteger.Pow(x, (int)n);
+            }
+            return x;
         }
 
     }
