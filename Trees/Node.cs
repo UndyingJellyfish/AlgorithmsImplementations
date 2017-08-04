@@ -9,11 +9,11 @@ namespace Trees
 {
     class Node
     {
-        private int key { get; set; }
-        private Object value { get; set; }
+        public int key { get; set; }
+        public Object value { get; set; }
         private Node parent { get; set; }
-        private Node left { get; set; }
-        private Node right { get; set; }
+        public Node left { get; set; }
+        public Node right { get; set; }
         private List<Node> children { get; set; }
 
     }
