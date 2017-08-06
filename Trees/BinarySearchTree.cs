@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,54 +11,87 @@ namespace Trees
     // https://stackoverflow.com/questions/10366402/binary-search-tree-in-c-sharp-implementation
     {
         public Node root { get; private set; }
-        private static int count = 0;
 
-        public BinarySearchTree(Node newRoot = null)
+        public BinarySearchTree(int key = Int32.MinValue, Node newRoot = null)
         {
             root = newRoot;
         }
 
-        public bool AddNode(Node nodeToAdd, Node startingNode)
+        public BinarySearchTree(int key) : this()
         {
+            Node newRoot = new Node();
+            newRoot.key = key;
+            this.root = newRoot;
+        }
+
+        public bool AddNode(Node nodeToAdd, Node currentNode = null)
+        {
+            if (currentNode == null)
+            {
+                currentNode = root;
+            }
             if (root == null)
             {
                 root = nodeToAdd;
                 return true;
             }
-            else if (nodeToAdd.key < startingNode.key)
+            else if (nodeToAdd.key < currentNode.key)
             {
-                if (startingNode.left == null)
+                if (currentNode.left == null)
                 {
-                    startingNode.left = nodeToAdd;
+                    currentNode.left = nodeToAdd;
                     return true;
                 }
-                return AddNode(nodeToAdd, startingNode.left);
+                return AddNode(nodeToAdd, currentNode.left);
 
             }
-            else if (nodeToAdd.key > startingNode.key)
+            else if (nodeToAdd.key > currentNode.key)
             {
-                if (startingNode.right == null)
+                if (currentNode.right == null)
                 {
-                    startingNode.right = nodeToAdd;
+                    currentNode.right = nodeToAdd;
                     return true;
                 }
-                return AddNode(nodeToAdd, startingNode.right);
+                return AddNode(nodeToAdd, currentNode.right);
             }
 
             return false;
         }
 
-
-
-        public void DisplayTree(Node tempRoot = null)
+        public bool AddNode(int key, Node currentNode = null)
         {
-            //Console.WriteLine( tempRoot == null ? "tempRoot is null" : "tempRoot is not null");
+            Node newNode = new Node(key);
+            return AddNode(newNode, currentNode);
+        }
 
-            if (root == null) return;
 
-            DisplayTree(root.left);
-            System.Console.Write(root.key + " ");
-            DisplayTree(root.right);
+
+        public void DisplayTree(Node currentNode)
+        {
+            // recursively writes out the left subtree until leafs are hit
+            // then writes the active node, and finally writes the right subtree until no nodes remain
+            // ultimately the result is an ordered list of the keys
+
+            //Console.WriteLine( currentNode == null ? "currentNode is null" : "currentNode is not null");
+
+            if (currentNode != null)
+            {
+                DisplayTree(currentNode.left);
+                System.Console.Write(currentNode + " ");
+                DisplayTree(currentNode.right);
+            }
+        }
+
+        public List<Node> GetPriorityNodes(Node currentNode)
+        {
+            List<Node> results = new List<Node>();
+            if (currentNode != null)
+            {
+                results.AddRange(GetPriorityNodes(currentNode.left));
+                results.Add(currentNode);
+                results.AddRange(GetPriorityNodes(currentNode.right));
+            }
+            return results;
 
         }
 

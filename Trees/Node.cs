@@ -11,10 +11,20 @@ namespace Trees
     {
         public int key { get; set; }
         public Object value { get; set; }
-        private Node parent { get; set; }
         public Node left { get; set; }
         public Node right { get; set; }
-        private List<Node> children { get; set; }
 
+        public Node(int key = 0, Object value = null)
+        {
+            this.key = key;
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+
+        public override string ToString()
+        {
+            return key.ToString();
+        }
     }
 }
