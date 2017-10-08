@@ -2,16 +2,16 @@
     match (list1,list2) with
         head1::tail1, head2::tail2 ->
             if head1 = head2 then
-                printf "head :: LCS tail1 tail2"
+                printf "head :: LCS tail1 tail2\n"
                 head1 :: LCS tail1 tail2
             else
                 let c1 = LCS list1 tail2 in
                 let c2 = LCS tail1 list2 in
                 if c1.Length > c2.Length then
-                    printf "c1"
+                    printf "c1\n"
                     c1
                 else
-                    printf "c2"
+                    printf "c2\n"
                     c2  
  
         | _ -> []
