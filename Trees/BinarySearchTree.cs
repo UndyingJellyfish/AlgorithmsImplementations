@@ -12,14 +12,12 @@ namespace Trees
     {
         public Node root { get; private set; }
 
-        public BinarySearchTree(int key = Int32.MinValue, Node newRoot = null)
+        public BinarySearchTree(int key = 0, Node newRoot = null)
         {
-            root = newRoot;
-        }
-
-        public BinarySearchTree(int key) : this()
-        {
-            Node newRoot = new Node();
+            if (newRoot == null)
+            {
+                newRoot = new Node();
+            }
             newRoot.key = key;
             this.root = newRoot;
         }
@@ -64,7 +62,10 @@ namespace Trees
             return AddNode(newNode, currentNode);
         }
 
-
+        public void DisplayTree()
+        {
+            DisplayTree(root);
+        }
 
         public void DisplayTree(Node currentNode)
         {
