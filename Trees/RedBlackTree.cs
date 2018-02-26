@@ -6,10 +6,25 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
-    class RedBlackTree
+    enum Color
     {
-        public RBNode root { get; private set; }
+        Red,
+        Black
+    }
+    enum RotationDirection
+    {
+        Left,
+        Right
+    }
+    public class RedBlackTree
+    {
+        private RBNode root { get; set; }
+        internal RBNode Root => root;
 
+        public RedBlackTree(){
+            this.root = new RBNode();
+            this.root.isRoot = true;
+        }
         public RedBlackTree(int key = 0, RBNode newRoot = null)
         {
             if (newRoot == null)
@@ -18,9 +33,7 @@ namespace Trees
             }
             this.root = newRoot;
             root.key = key;
-            
         }
-
 
 
 
@@ -44,5 +57,14 @@ namespace Trees
                 DisplayTree(currentNode.right);
             }
         }
+
+        public bool ValidateTree(){
+            return ValidateTree(root);
+        }
+        public bool ValidateTree(RBNode currentNode){
+            if (currentNode == null) return true;
+            return ValidateTree(this.root.left) && this.root.ValidateNode() && ValidateTree(this.root.right);
+        }
+         
     }
 }
