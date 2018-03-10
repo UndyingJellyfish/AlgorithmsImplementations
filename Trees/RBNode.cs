@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
-    enum Color
-    {
-        Red,
-        Black
-    }
+    
 
-    class RBNode
+    public class RBNode
     {
         public int key { get; set; }
         public Object value { get; set; }
@@ -42,18 +38,16 @@ namespace Trees
             if (printToConsole) Console.WriteLine(s);
             return s;
         }
-        protected bool ValidateNode(){
-            // 1. Node is either Red or Black
+        public bool ValidateNode(){
+            // 1. Node is either Red or Black (always true when using enum)
             // 2. Root is always Black
-            // 3. Every leaf (NULL) is Black
+            // 3. Every leaf (NULL) is Black ()
             // 4. A red note has only black children
-            // 5. For each path, all simple paths to a descendant node has the same amount of black nodes
-            var colorCorrect = this.color == Trees.Color.Black || this.color == Trees.Color.Red; 
+            // 5. For each path, all simple paths to a descendant node has the same amount of black nodes (can't be checked from the node itself)
             var rootColorCorrect = this.isRoot ? this.color == Trees.Color.Black : true;
             var childrenColorCorrect = this.color == Trees.Color.Red ? this.left.color == Trees.Color.Black && this.right.color == Trees.Color.Black : true;
 
-
-            return true;
+            return rootColorCorrect && childrenColorCorrect;
         }
 
     }
