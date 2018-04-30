@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Trees</RootNamespace>
     <AssemblyName>Trees</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +50,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RBNode.cs" />
     <Compile Include="RedBlackTree.cs" />
+    <Compile Include="RotationDirection.cs" />
+    <Compile Include="TreeColor.cs" />
     <Compile Include="_234Node.cs" />
   </ItemGroup>
   <ItemGroup>
