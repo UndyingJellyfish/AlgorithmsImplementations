@@ -17,9 +17,5 @@ namespace Strings
 
             Console.WriteLine(LongestCommonSubsequence.lcs_Dynamic(in1, in2));
         }
-
-        
-
-
     }
 }

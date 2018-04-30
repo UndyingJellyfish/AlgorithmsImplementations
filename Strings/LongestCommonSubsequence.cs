@@ -9,6 +9,7 @@ namespace Strings
 {
     public class LongestCommonSubsequence
     {
+        // https://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_3
         public static string lcs_Dynamic(string s1, string s2)
         {
             int[,] lengths = new int[s1.Length + 1, s2.Length + 1];
