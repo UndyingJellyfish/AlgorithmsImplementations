@@ -10,7 +10,7 @@ namespace Trees
     class BinarySearchTree
     // https://stackoverflow.com/questions/10366402/binary-search-tree-in-c-sharp-implementation
     {
-        public Node root { get; private set; }
+        public Node Root { get; private set; }
 
         public BinarySearchTree(int key = 0, Node newRoot = null)
         {
@@ -18,39 +18,39 @@ namespace Trees
             {
                 newRoot = new Node();
             }
-            newRoot.key = key;
-            this.root = newRoot;
+            newRoot.Key = key;
+            this.Root = newRoot;
         }
 
         public bool AddNode(Node nodeToAdd, Node currentNode = null)
         {
             if (currentNode == null)
             {
-                currentNode = root;
+                currentNode = Root;
             }
-            if (root == null)
+            if (Root == null)
             {
-                root = nodeToAdd;
+                Root = nodeToAdd;
                 return true;
             }
-            else if (nodeToAdd.key < currentNode.key)
+            else if (nodeToAdd.Key < currentNode.Key)
             {
-                if (currentNode.left == null)
+                if (currentNode.Left == null)
                 {
-                    currentNode.left = nodeToAdd;
+                    currentNode.Left = nodeToAdd;
                     return true;
                 }
-                return AddNode(nodeToAdd, currentNode.left);
+                return AddNode(nodeToAdd, currentNode.Left);
 
             }
-            else if (nodeToAdd.key > currentNode.key)
+            else if (nodeToAdd.Key > currentNode.Key)
             {
-                if (currentNode.right == null)
+                if (currentNode.Right == null)
                 {
-                    currentNode.right = nodeToAdd;
+                    currentNode.Right = nodeToAdd;
                     return true;
                 }
-                return AddNode(nodeToAdd, currentNode.right);
+                return AddNode(nodeToAdd, currentNode.Right);
             }
 
             return false;
@@ -64,7 +64,7 @@ namespace Trees
 
         public void DisplayTree()
         {
-            DisplayTree(root);
+            DisplayTree(Root);
         }
 
         public void DisplayTree(Node currentNode)
@@ -77,9 +77,9 @@ namespace Trees
 
             if (currentNode != null)
             {
-                DisplayTree(currentNode.left);
+                DisplayTree(currentNode.Left);
                 System.Console.Write(currentNode + " ");
-                DisplayTree(currentNode.right);
+                DisplayTree(currentNode.Right);
             }
         }
 
@@ -88,9 +88,9 @@ namespace Trees
             List<Node> results = new List<Node>();
             if (currentNode != null)
             {
-                results.AddRange(GetPriorityNodes(currentNode.left));
+                results.AddRange(GetPriorityNodes(currentNode.Left));
                 results.Add(currentNode);
-                results.AddRange(GetPriorityNodes(currentNode.right));
+                results.AddRange(GetPriorityNodes(currentNode.Right));
             }
             return results;
 

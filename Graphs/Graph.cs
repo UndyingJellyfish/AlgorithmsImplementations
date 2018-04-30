@@ -4,7 +4,7 @@ using static Graphs.GraphType;
 
 namespace Graphs
 {
-    public class Graph<TCost, TValue> where TCost : IComparable
+    public class Graph<TCost, TValue> where TCost : struct, IComparable
     {
         // https://github.com/UndyingJellyfish/Elderlearn/tree/0a8f18273d26095abb2a0b68cf4cfccc35fdef5b/UserMatching
 

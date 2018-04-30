@@ -60,7 +60,7 @@ namespace _MainNamespace
             MinimumSpanningTrees.KruskalsAlgorithm.calculateAndPrintKruskalMST(V, adjacency, out kruskalMST);
 
             Console.WriteLine("Prim MST:");
-            MinimumSpanningTrees.PrimsAlgorithm.primMST(adjacencyMatrix, V);
+            MinimumSpanningTrees.PrimsAlgorithm.PrimMst(adjacencyMatrix, V);
 
             Console.ReadLine();
 

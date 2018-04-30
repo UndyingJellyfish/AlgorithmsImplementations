@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Graphs
 {
 
-    public class Edge<TCost, TValue> : IComparable<Edge<TCost, TValue>> where TCost : IComparable
+    public class Edge<TCost, TValue> : IComparable<Edge<TCost, TValue>> where TCost : struct, IComparable
     {
         public bool GraphIsDirected { get; private set; }
         public TCost Cost { get; set; }
@@ -39,7 +39,7 @@ namespace Graphs
         public int CompareTo(Edge<TCost, TValue> other)
         {
             if (ReferenceEquals(this, other)) return 0;
-            if (ReferenceEquals(null, other)) return 1;
+            if (other is null) return 1;
             
             return this.Cost.CompareTo(other.Cost);
         }

@@ -28,7 +28,7 @@ namespace MinimumSpanningTrees
         }
 
 
-        private static void quickSort(int p, int r, int ALength, Edge[] edges)
+        private static void quickSort(int p, int r, int aLength, Edge[] edges)
         {
             int i = p, j = r, m = (i + j) / 2;
             Edge x = edges[m];
@@ -54,10 +54,10 @@ namespace MinimumSpanningTrees
             while (i <= j);
 
             if (p < j)
-                quickSort(p, j, ALength, edges);
+                quickSort(p, j, aLength, edges);
 
             if (i < r)
-                quickSort(i, r, ALength, edges);
+                quickSort(i, r, aLength, edges);
         }
 
         public static Pair[] kruskalMST(int n, Adjacency adjacency)

@@ -6,35 +6,33 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
-    
-
-    public class RBNode
+    public class RbNode
     {
-        public int key { get; set; }
-        public Object value { get; set; }
-        public Color color { get; set; }
-        public RBNode left { get; set; }
-        public RBNode right { get; set; }
-        public bool isRoot { get; internal set;}
+        public int Key { get; set; }
+        public Object Value { get; set; }
+        public TreeColor Color { get; set; }
+        public RbNode Left { get; set; }
+        public RbNode Right { get; set; }
+        public bool IsRoot { get; internal set;}
 
-        public RBNode(int key = 0, Object value = null)
+        public RbNode(int key = 0, Object value = null)
         {
-            this.key = key;
-            this.value = value;
-            this.left = null;
-            this.right = null;
-            this.color = Color.Black;
-            this.isRoot = false;
+            this.Key = key;
+            this.Value = value;
+            this.Left = null;
+            this.Right = null;
+            this.Color = TreeColor.Black;
+            this.IsRoot = false;
         }
 
         public override string ToString()
         {
-            return key.ToString();
+            return Key.ToString();
         }
 
         public string ToDebugString(bool printToConsole = false)
         {
-            string s = String.Format("Key: {0}\tValue: {1}\tColor: {2}\tLeft color: {3}\tRight color: {4}", this.key, this.value, this.color, this.left.color, this.right.color);
+            string s = String.Format("Key: {0}\tValue: {1}\tColor: {2}\tLeft color: {3}\tRight color: {4}", this.Key, this.Value, this.Color, this.Left.Color, this.Right.Color);
             if (printToConsole) Console.WriteLine(s);
             return s;
         }
@@ -44,8 +42,8 @@ namespace Trees
             // 3. Every leaf (NULL) is Black ()
             // 4. A red note has only black children
             // 5. For each path, all simple paths to a descendant node has the same amount of black nodes (can't be checked from the node itself)
-            var rootColorCorrect = this.isRoot ? this.color == Trees.Color.Black : true;
-            var childrenColorCorrect = this.color == Trees.Color.Red ? this.left.color == Trees.Color.Black && this.right.color == Trees.Color.Black : true;
+            var rootColorCorrect = this.IsRoot ? this.Color == Trees.TreeColor.Black : true;
+            var childrenColorCorrect = this.Color == Trees.TreeColor.Red ? this.Left.Color == Trees.TreeColor.Black && this.Right.Color == Trees.TreeColor.Black : true;
 
             return rootColorCorrect && childrenColorCorrect;
         }

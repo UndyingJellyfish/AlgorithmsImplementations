@@ -6,43 +6,31 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
-    enum Color
-    {
-        Red,
-        Black
-    }
-    enum RotationDirection
-    {
-        Left,
-        Right
-    }
     public class RedBlackTree
     {
-        private RBNode root { get; set; }
-        internal RBNode Root => root;
+        private RbNode Root { get; set; }
 
         public RedBlackTree(){
-            this.root = new RBNode();
-            this.root.isRoot = true;
+            this.Root = new RbNode {IsRoot = true};
         }
-        public RedBlackTree(int key = 0, RBNode newRoot = null)
+        public RedBlackTree(int key = 0, RbNode newRoot = null)
         {
             if (newRoot == null)
             {
-                newRoot = new RBNode();
+                newRoot = new RbNode();
             }
-            this.root = newRoot;
-            root.key = key;
+            this.Root = newRoot;
+            Root.Key = key;
         }
 
 
 
         public void DisplayTree()
         {
-            DisplayTree(root);
+            DisplayTree(Root);
         }
 
-        public void DisplayTree(RBNode currentNode)
+        public void DisplayTree(RbNode currentNode)
         {
             // recursively writes out the left subtree until leafs are hit
             // then writes the active node, and finally writes the right subtree until no nodes remain
@@ -52,18 +40,18 @@ namespace Trees
 
             if (currentNode != null)
             {
-                DisplayTree(currentNode.left);
+                DisplayTree(currentNode.Left);
                 System.Console.Write(currentNode + " ");
-                DisplayTree(currentNode.right);
+                DisplayTree(currentNode.Right);
             }
         }
 
         public bool ValidateTree(){
-            return ValidateTree(root);
+            return ValidateTree(Root);
         }
-        public bool ValidateTree(RBNode currentNode){
+        public bool ValidateTree(RbNode currentNode){
             if (currentNode == null) return true;
-            return ValidateTree(this.root.left) && this.root.ValidateNode() && ValidateTree(this.root.right);
+            return ValidateTree(this.Root.Left) && this.Root.ValidateNode() && ValidateTree(this.Root.Right);
         }
          
     }

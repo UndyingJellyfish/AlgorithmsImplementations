@@ -11,12 +11,12 @@ namespace MinimumSpanningTrees
 
         // A utility function to find the vertex with minimum key
         // value, from the set of vertices not yet included in MST
-        private static int minKey(int[] key, bool[] mstSet, int V)
+        private static int MinKey(int[] key, bool[] mstSet, int vert)
         {
             // Initialize min value
             int min = int.MaxValue, min_index = -1;
 
-            for (int v = 0; v < V; v++)
+            for (int v = 0; v < vert; v++)
                 if (mstSet[v] == false && key[v] < min)
                 {
                     min = key[v];
@@ -28,29 +28,29 @@ namespace MinimumSpanningTrees
 
         // A utility function to print the constructed MST stored in
         // parent[]
-        private static void printMST(int[] parent, int n, int[,] graph, int V)
+        private static void PrintMst(int[] parent, int n, int[,] graph, int v)
         {
             Console.WriteLine("Edge   Weight");
-            for (int i = 1; i < V; i++)
-                Console.WriteLine(parent[i] + " - " + i + "    " +
+            for (int i = 1; i < v; i++)
+                Console.WriteLine("" + n + parent[i] + " - " + i + "    " +
                                    graph[i,parent[i]]);
         }
 
         // Function to construct and print MST for a graph represented
         //  using adjacency matrix representation
-        public static void primMST(int[,] graph, int V)
+        public static void PrimMst(int[,] graph, int vert)
         {
             // Array to store constructed MST
-            int[] parent = new int[V];
+            int[] parent = new int[vert];
 
             // Key values used to pick minimum weight edge in cut
-            int[] key = new int[V];
+            int[] key = new int[vert];
 
             // To represent set of vertices not yet included in MST
-            bool[] mstSet = new bool[V];
+            bool[] mstSet = new bool[vert];
 
             // Initialize all keys as INFINITE
-            for (int i = 0; i < V; i++)
+            for (int i = 0; i < vert; i++)
             {
                 key[i] = int.MaxValue;
                 mstSet[i] = false;
@@ -62,11 +62,11 @@ namespace MinimumSpanningTrees
             parent[0] = -1; // First node is always root of MST
 
             // The MST will have V vertices
-            for (int count = 0; count < V - 1; count++)
+            for (int count = 0; count < vert - 1; count++)
             {
                 // Pick thd minimum key vertex from the set of vertices
                 // not yet included in MST
-                int u = minKey(key, mstSet, V);
+                int u = MinKey(key, mstSet, vert);
 
                 // Add the picked vertex to the MST Set
                 mstSet[u] = true;
@@ -74,7 +74,7 @@ namespace MinimumSpanningTrees
                 // Update key value and parent index of the adjacent
                 // vertices of the picked vertex. Consider only those
                 // vertices which are not yet included in MST
-                for (int v = 0; v < V; v++)
+                for (int v = 0; v < vert; v++)
 
                     // graph[u][v] is non zero only for adjacent vertices of m
                     // mstSet[v] is false for vertices not yet included in MST
@@ -88,7 +88,7 @@ namespace MinimumSpanningTrees
             }
 
             // print the constructed MST
-            printMST(parent, V, graph, V);
+            PrintMst(parent, vert, graph, vert);
         }
     }
 }

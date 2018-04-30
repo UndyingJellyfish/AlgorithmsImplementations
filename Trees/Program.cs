@@ -21,17 +21,17 @@ namespace Trees
             bst.AddNode(73);
             bst.AddNode(1997);
 
-            bst.DisplayTree(bst.root);
+            bst.DisplayTree(bst.Root);
 
-            List<Node> priorityList = bst.GetPriorityNodes(bst.root);
+            List<Node> priorityList = bst.GetPriorityNodes(bst.Root);
             Console.WriteLine();
-            printList(priorityList);
+            PrintList(priorityList);
 
             Console.ReadLine();
 
         }
 
-        static void printList<T>(List<T> listToPrint)
+        static void PrintList<T>(List<T> listToPrint)
         {
             foreach (var item in listToPrint)
             {

@@ -9,22 +9,22 @@ namespace Trees
 {
     class Node
     {
-        public int key { get; set; }
-        public Object value { get; set; }
-        public Node left { get; set; }
-        public Node right { get; set; }
+        public int Key { get; set; }
+        public Object Value { get; set; }
+        public Node Left { get; set; }
+        public Node Right { get; set; }
 
         public Node(int key = 0, Object value = null)
         {
-            this.key = key;
-            this.value = value;
-            this.left = null;
-            this.right = null;
+            this.Key = key;
+            this.Value = value;
+            this.Left = null;
+            this.Right = null;
         }
 
         public override string ToString()
         {
-            return key.ToString();
+            return Key.ToString();
         }
     }
 }
