@@ -6,16 +6,16 @@ namespace Graphs
     /// <summary>
     /// Contains the algorithms for calculating the single shortest path in a graph.
     /// </summary>
-    public class SingleShortestPath<TValue>
+    public class SingleShortestPath<TCost, TValue> where TCost : struct, IComparable
     {
 
-        private List<Node<int, TValue>> AllNodes { get; set; }
-        public Node<int, TValue> SourceNode { get; private set; }
-        public Node<int, TValue> TargetNode { get; private set; }
+        private List<Node<TCost, TValue>> AllNodes { get; set; }
+        public Node<TCost, TValue> SourceNode { get; private set; }
+        public Node<TCost, TValue> TargetNode { get; private set; }
 
 
         /// <summary>
-        /// Initializes the single source shortest path. Deprecated due to optimizations in graph generation.
+        /// Initializes the single source shortest path.
         /// </summary>
         /// <param name="nodes">A list of nodes in the graph structure.</param>
         /// <param name="sourceX">The source x coordinate.</param>
@@ -36,12 +36,17 @@ namespace Graphs
         /// <param name="u">The node that is being considered</param>
         /// <param name="v">The potential optimizable target</param>
         /// <param name="adjacencies">Adjacency dictionary, each node should have a corresponding key.</param>
-        private static void Relax(Node u, Node v, Dictionary<Node, List<Edge>> adjacencies)
+        private static void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies)
         {
+
+            // TODO: find out how to handle adjacencies in a generic graph
             var w = adjacencies[u].Find(n => n.To.X == v.X && n.To.Y == v.Y).Cost;
-            if (v.D > u.D + w)
+
+            
+            // TODO: Consider constraining TCost to be an arithmetic type
+            if (v.TotalDistance.CompareTo(u.TotalDistance + w) > 0)
             {
-                v.D = u.D + w;
+                v.TotalDistance = u.TotalDistance + w;
                 v.Predecessor = u;
             }
         }
@@ -56,12 +61,12 @@ namespace Graphs
         /// <param name="targetX">The destination x coordinate.</param>
         /// <param name="targetY">The destination y coordinate.</param>
         /// <returns>The shortest path from the source to the target.</returns>
-        public static List<Node> DijkstraSingleShortestPath(List<Node> nodes, Dictionary<Node, List<Edge>> adjacencies, int targetX, int targetY)
+        public static List<Node<TCost, TValue>> DijkstraSingleShortestPath(List<Node<TCost, TValue>> nodes, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies, int targetX, int targetY)
         {
             // don't actually need this, as we are initializing the nodes with the correct fields instead
             //InitializeSingleSource(nodes, 0, 0); 
 
-            var minHeap = new MinimumHeap(nodes);
+            var minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(nodes);
             minHeap.BuildHeap();
 
             while (minHeap.Size() != 0)
@@ -75,7 +80,7 @@ namespace Graphs
                 }
             }
 
-            var shortestPath = new List<Node>(); // used to store the final path
+            var shortestPath = new List<Node<TCost, TValue>>(); // used to store the final path
             var currentNode = nodes.Find(n => n.X == targetX && n.Y == targetY);
             shortestPath.Add(currentNode);
 

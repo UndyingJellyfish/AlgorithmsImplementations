@@ -1,21 +1,21 @@
-﻿using Graphs;
+﻿using System;
 using System.Collections.Generic;
 
-namespace GamblifyChallenge
+namespace Graphs
 {
-    public class MinimumHeap
+    public class DijkstraShortestPathMinimumHeap<TCost,TValue> where TCost : struct, IComparable
     {
         public int HeapSize { get; private set; }
-        public List<Node> Nodes { get; }
+        public List<Node<TCost, TValue>> Nodes { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MinimumHeap"/> class.
+        /// Initializes a new instance of the <see cref="DijkstraShortestPathMinimumHeap{TCost,TValue}"/> class.
         /// </summary>
         /// <param name="vertices">The vertices in the graph structure.</param>
-        public MinimumHeap(List<Node> vertices)
+        public DijkstraShortestPathMinimumHeap(List<Node<TCost, TValue>> vertices)
         {
             HeapSize = vertices.Count;
-            Nodes = new List<Node>();
+            Nodes = new List<Node<TCost, TValue>>();
             foreach (var v in vertices)
             {
                 Nodes.Add(v);
@@ -45,11 +45,11 @@ namespace GamblifyChallenge
             int largest;
 
 
-            if (l < HeapSize && Nodes[l].D > Nodes[i].D)
+            if (l < HeapSize && Nodes[l].TotalDistance.CompareTo(Nodes[i].TotalDistance) > 0)
                 largest = l;
             else
                 largest = i;
-            if (r < HeapSize && Nodes[r].D > Nodes[largest].D)
+            if (r < HeapSize && Nodes[r].TotalDistance.CompareTo(Nodes[largest].TotalDistance) > 0)
                 largest = r;
             if (largest == i) return;
 
@@ -73,7 +73,7 @@ namespace GamblifyChallenge
         /// </summary>
         /// <param name="n">The node to be found.</param>
         /// <returns>Index of n.</returns>
-        public int HeapSearch(Node n)
+        public int HeapSearch(Node<TCost, TValue> n)
         {
             for (var i = 0; i < HeapSize; i++)
             {
@@ -109,7 +109,7 @@ namespace GamblifyChallenge
         /// Sorts the heap and then extracts the minimum value in the heap.
         /// </summary>
         /// <returns>Minimum value in the heap.</returns>
-        public Node ExtractMin()
+        public Node<TCost, TValue> ExtractMin()
         {
             if (HeapSize < 1)
                 return null;
@@ -126,7 +126,7 @@ namespace GamblifyChallenge
         /// </summary>
         /// <param name="n">The node to be found.</param>
         /// <returns>The index of n.</returns>
-        public int Find(Node n)
+        public int Find(Node<TCost, TValue> n)
         {
             return HeapSearch(n);
         }

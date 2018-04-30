@@ -13,9 +13,26 @@ namespace Graphs
         
         public Node(TValue val)
         {
+            Edges = new List<Edge<TCost, TValue>>();
             Value = val;
             SetTotalDiostanceAsMaxValue();
             Predecessor = null;
+        }
+
+        public bool TryAddEdge(Edge<TCost, TValue> edge)
+        {
+            if (!Edges.Exists(x => x.Equals(edge)))
+            {
+                Edges.Add(edge);
+                return true;
+            }
+            return false;
+        }
+
+        public void AddEdge(Edge<TCost, TValue> edge)
+        {
+            var result = TryAddEdge(edge);
+            if (!result) throw new Exception("Edge is already added, cannot add same edge twice.");
         }
 
 
@@ -99,7 +116,7 @@ namespace Graphs
             unchecked
             {
                 var hashCode = EqualityComparer<TValue>.Default.GetHashCode(Value);
-                hashCode = (hashCode * 397) ^ (Edges != null ? Edges.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Edges.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalDistance.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Predecessor != null ? Predecessor.GetHashCode() : 0);
                 return hashCode;
