@@ -10,7 +10,7 @@ namespace Strings
     public class LongestCommonSubsequence
     {
         // https://rosettacode.org/wiki/Longest_common_subsequence#Dynamic_Programming_3
-        public static string lcs_Dynamic(string s1, string s2)
+        public static string Lcs_Dynamic(string s1, string s2)
         {
             int[,] lengths = new int[s1.Length + 1, s2.Length + 1];
 
@@ -53,10 +53,10 @@ namespace Strings
             }
             string output = sb.ToString();
 
-            return reverse(output);
+            return Reverse(output);
         }
 
-        private static string reverse(string s)
+        private static string Reverse(string s)
         {
             StringBuilder sb = new StringBuilder();
             for (int i = s.Length - 1; i >= 0; i--)
