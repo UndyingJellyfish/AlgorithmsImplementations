@@ -42,8 +42,8 @@ namespace SortingAlgorithms
     {
         private const int Base = 10;
         private Calculator<T> Calculator { get; set; }
-        private Calculator<T> _c => Calculator;
-        private T Generify(int val) => GenericConversions<T>.Generify(val);
+        private Calculator<T> C => Calculator;
+        private static T Generify(int val) => GenericConversions<T>.Generify(val);
 
         public RadixSort(Calculator<T> calc)
         {
@@ -60,13 +60,11 @@ namespace SortingAlgorithms
             }
             var max = list.Concat(new[] { default(T) }).Max();
 
-            var asdas = GenericConversions<T>.Generify(0);
-
-            for (var pow = _c.Add(default(T), GenericConversions<T>.Generify(1)); !_c.Div(max, pow).Equals(Generify(0)); pow = _c.Mult(pow, Generify(Base)))
+            for (var pow = C.Add(default(T), GenericConversions<T>.Generify(1)); !C.Div(max, pow).Equals(Generify(0)); pow = C.Mult(pow, Generify(Base)))
             {
                 foreach (var val in list)
                 {
-                    buckets[(int)Convert.ChangeType(_c.Div(val, pow), typeof(int)) % Base].Add(val);
+                    buckets[(int)Convert.ChangeType(C.Div(val, pow), typeof(int)) % Base].Add(val);
                 }
                 var index = 0;
 
