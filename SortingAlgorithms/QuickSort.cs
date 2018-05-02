@@ -84,8 +84,8 @@ namespace SortingAlgorithms
         private static int Median3(IList<T> ints, int i, int j, int k)
         {
             return ints[i].CompareTo(ints[j]) < 0 ? 
-                ((ints[j].CompareTo(ints[k]) < 0) ? j : ints[i].CompareTo(ints[k]) < 0 ? k : i) : 
-                (ints[k].CompareTo(ints[j]) < 0 ? j : (ints[k].CompareTo(ints[i]) < 0) ? k : i);
+                (ints[j].CompareTo(ints[k]) < 0 ? j : ints[i].CompareTo(ints[k]) < 0 ? k : i) : 
+                (ints[k].CompareTo(ints[j]) < 0 ? j : ints[k].CompareTo(ints[i]) < 0 ? k : i);
         }
 
     }
