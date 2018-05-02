@@ -11,6 +11,7 @@ namespace SortingAlgorithms
         public static List<int> Sort(List<int> ints)
         {
             var intsBuckets = new List<List<int>>(Base);
+
             for (var i = 0; i < Base; i++) // init buckets
             {
                 intsBuckets.Add(new List<int>());
@@ -21,7 +22,7 @@ namespace SortingAlgorithms
             {
                 foreach (var val in ints)
                 {
-                    intsBuckets[val / power % Base].Add(val);
+                    intsBuckets[(val / power) % Base].Add(val);
                 }
                 var index = 0;
 
@@ -37,18 +38,18 @@ namespace SortingAlgorithms
             return ints;
         }
     }
-
     public class RadixSort<T> where T : struct, IComparable<T>
     {
         private const int Base = 10;
         private Calculator<T> Calculator { get; set; }
         private Calculator<T> _c => Calculator;
-        
+        private T Generify(int val) => GenericConversions<T>.Generify(val);
+
         public RadixSort(Calculator<T> calc)
         {
             this.Calculator = calc;
         }
-        
+
         public List<T> Sort(List<T> list)
         {
             var buckets = new List<List<T>>(Base);
@@ -58,17 +59,22 @@ namespace SortingAlgorithms
                 buckets.Add(new List<T>());
             }
             var max = list.Concat(new[] { default(T) }).Max();
-            var index = 0;
 
-            var startValue = _c.Add(default(T), (T) Convert.ChangeType(1, typeof(T)));
+            var asdas = GenericConversions<T>.Generify(0);
 
-            for (var pow = startValue; ! _c.Div(max, pow).Equals(GenericConversions<T>.Generify(0)); pow = _c.Mult(pow, max))
+            for (var pow = _c.Add(default(T), GenericConversions<T>.Generify(1)); !_c.Div(max, pow).Equals(Generify(0)); pow = _c.Mult(pow, Generify(Base)))
             {
+                foreach (var val in list)
+                {
+                    buckets[(int)Convert.ChangeType(_c.Div(val, pow), typeof(int)) % Base].Add(val);
+                }
+                var index = 0;
+
                 foreach (var bucket in buckets)
                 {
-                    foreach (var i in bucket)
+                    foreach (var val in bucket)
                     {
-                        list[index++] = i;
+                        list[index++] = val;
                     }
                 }
             }
