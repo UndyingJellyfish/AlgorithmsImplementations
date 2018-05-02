@@ -34,15 +34,8 @@ namespace SortingAlgorithms
                 }
             }
 
-            foreach (var b in intsBuckets)
-            {
-                b.Clear();
-            }
-
-
             return ints;
         }
-        
     }
 
     public class RadixSort<T> where T : struct, IComparable<T>
@@ -79,7 +72,6 @@ namespace SortingAlgorithms
                     }
                 }
             }
-            buckets.RemoveAll(x => true);
 
             return list;
         }
