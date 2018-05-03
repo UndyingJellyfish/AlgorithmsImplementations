@@ -36,13 +36,12 @@ namespace Graphs
         /// <param name="u">The node that is being considered</param>
         /// <param name="v">The potential optimizable target</param>
         /// <param name="adjacencies">Adjacency dictionary, each node should have a corresponding key.</param>
-        private static void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies)
+        private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies)
         {
 
             // TODO: find out how to handle adjacencies in a generic graph
-            var w = adjacencies[u].Find(n => n.To.X == v.X && n.To.Y == v.Y).Cost;
+            var w = adjacencies[u].Find(n => n.To.Equals(v)).Cost;
 
-            
             // TODO: Consider constraining TCost to be an arithmetic type
             if (v.TotalDistance.CompareTo(u.TotalDistance + w) > 0)
             {
@@ -61,7 +60,7 @@ namespace Graphs
         /// <param name="targetX">The destination x coordinate.</param>
         /// <param name="targetY">The destination y coordinate.</param>
         /// <returns>The shortest path from the source to the target.</returns>
-        public static List<Node<TCost, TValue>> DijkstraSingleShortestPath(List<Node<TCost, TValue>> nodes, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies, int targetX, int targetY)
+        public List<Node<TCost, TValue>> DijkstraSingleShortestPath(List<Node<TCost, TValue>> nodes, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies)
         {
             // don't actually need this, as we are initializing the nodes with the correct fields instead
             //InitializeSingleSource(nodes, 0, 0); 
@@ -81,7 +80,7 @@ namespace Graphs
             }
 
             var shortestPath = new List<Node<TCost, TValue>>(); // used to store the final path
-            var currentNode = nodes.Find(n => n.X == targetX && n.Y == targetY);
+            var currentNode = nodes.Find(n => n.Equals(TargetNode));
             shortestPath.Add(currentNode);
 
             while (currentNode.Predecessor != null)

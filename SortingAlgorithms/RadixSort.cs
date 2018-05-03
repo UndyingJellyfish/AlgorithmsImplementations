@@ -60,7 +60,7 @@ namespace SortingAlgorithms
             }
             var max = list.Concat(new[] { default(T) }).Max();
 
-            for (var pow = C.Add(default(T), GenericConversions<T>.Generify(1)); !C.Div(max, pow).Equals(Generify(0)); pow = C.Mult(pow, Generify(Base)))
+            for (var pow = Add(default(T), 1); !C.Div(max, pow).Equals(Generify(0)); pow = C.Mult(pow, Generify(Base)))
             {
                 foreach (var val in list)
                 {
@@ -78,6 +78,11 @@ namespace SortingAlgorithms
             }
 
             return list;
+        }
+
+        private T Add(object val1, object val2)
+        {
+            return C.Add((T)val1, GenericConversions<T>.Generify(val2));
         }
     }
 }
