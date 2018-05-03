@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _02105AlgorithmsImplementations
+﻿namespace _MainNamespace
 {
     public class TestingDataMst
     {
-        public static int[,] createTestingAdjacencyMatrix()
+        public static int[,] CreateTestingAdjacencyMatrix()
         {
             var V = 9;
             var adjacencyMatrix = new int[V, V];

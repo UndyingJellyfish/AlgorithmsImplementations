@@ -13,16 +13,17 @@ namespace _MainNamespace
         {
             int V = 9;
             /*
-            int[,] graph = new int[,] {{0, 2, 0, 6, 0},
-                                    {2, 0, 3, 8, 5},
-                                    {0, 3, 0, 0, 7},
-                                    {6, 8, 0, 0, 9},
-                                    {0, 5, 7, 9, 0},
-                                   };
-            MinimumSpanningTrees.PrimsAlgorithm.primMST(graph, V);
+            {
+                {0, 2, 0, 6, 0},
+                {2, 0, 3, 8, 5},
+                {0, 3, 0, 0, 7},
+                {6, 8, 0, 0, 9},
+                {0, 5, 7, 9, 0}
+            };
             */
             MinimumSpanningTrees.Adjacency adjacency = new MinimumSpanningTrees.Adjacency(9);
 
+            #region Adjacencies
             adjacency.setElementAt(true, 0, 1);
             adjacency.setElementAt(true, 0, 7);
             adjacency.setElementAt(true, 1, 2);
@@ -51,10 +52,10 @@ namespace _MainNamespace
             adjacency.setWeight(6, 7, 1);
             adjacency.setWeight(6, 8, 6);
             adjacency.setWeight(7, 8, 13);
+            #endregion
 
-            var adjacencyMatrix = _02105AlgorithmsImplementations.TestingDataMst.createTestingAdjacencyMatrix();
-
-
+            var adjacencyMatrix = TestingDataMst.CreateTestingAdjacencyMatrix();
+            
             MinimumSpanningTrees.Pair[] kruskalMST = new MinimumSpanningTrees.Pair[V];
             Console.WriteLine("Kruskal MST:");
             MinimumSpanningTrees.KruskalsAlgorithm.CalculateAndPrintKruskalMst(V, adjacency, out kruskalMST);
@@ -63,7 +64,6 @@ namespace _MainNamespace
             MinimumSpanningTrees.PrimsAlgorithm.PrimMst(adjacencyMatrix, V);
 
             Console.ReadLine();
-
         }
     }
 }
