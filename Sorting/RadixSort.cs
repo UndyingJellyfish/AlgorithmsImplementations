@@ -52,6 +52,7 @@ namespace SortingAlgorithms
 
         public List<T> Sort(List<T> list)
         {
+            // TODO: This might help: https://stackoverflow.com/questions/2685035/is-there-a-good-radixsort-implementation-for-floats-in-c-sharp
             if (typeof(T) == typeof(float) || typeof(T) == typeof(double) || typeof(T) == typeof(decimal))
             {
                 throw new NotImplementedException("Radix sort with float, double or decimal is not yet supported, use another sorting algorithm.");
