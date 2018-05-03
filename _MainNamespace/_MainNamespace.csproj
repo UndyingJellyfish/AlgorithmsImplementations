@@ -56,17 +56,33 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataStructures\DataStructures.csproj">
-      <Project>{418d964c-cbaa-443c-98a4-5f39aaa01b6a}</Project>
-      <Name>DataStructures</Name>
+    <ProjectReference Include="..\Graphs\Graphs.csproj">
+      <Project>{404748a4-edf4-442d-86d2-8bb090322e39}</Project>
+      <Name>Graphs</Name>
     </ProjectReference>
     <ProjectReference Include="..\MinimumSpanningTrees\MinimumSpanningTrees.csproj">
       <Project>{51f73f6c-962d-4d37-8fe3-7503d9ad1926}</Project>
       <Name>MinimumSpanningTrees</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UnweightedGraphs\UnweightedGraphs.csproj">
-      <Project>{5fa2ad5a-084e-475b-92d8-0d0673cd432d}</Project>
-      <Name>UnweightedGraphs</Name>
+    <ProjectReference Include="..\Miscellaneous\Miscellaneous.csproj">
+      <Project>{7d2b1752-0183-4574-aa97-4cd522ab669c}</Project>
+      <Name>Miscellaneous</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sorting\Sorting.csproj">
+      <Project>{2070113e-1f77-4cba-b32b-3e92d70c6f6f}</Project>
+      <Name>Sorting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Strings\Strings.csproj">
+      <Project>{fa45bd83-2da5-47a7-ace1-950bbac6d128}</Project>
+      <Name>Strings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trees\Trees.csproj">
+      <Project>{dd4fb56c-c3b7-4d4d-beb7-f1cbd85682f0}</Project>
+      <Name>Trees</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{21fd205b-eb21-49b6-9132-f6f4e0f5ccb8}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
