@@ -52,6 +52,11 @@ namespace SortingAlgorithms
 
         public List<T> Sort(List<T> list)
         {
+            if (typeof(T) == typeof(float) || typeof(T) == typeof(double) || typeof(T) == typeof(decimal))
+            {
+                throw new NotImplementedException("Radix sort with float, double or decimal is not yet supported, use another sorting algorithm.");
+            }
+
             var buckets = new List<List<T>>(Base);
 
             for (var i = 0; i < Base; i++)
