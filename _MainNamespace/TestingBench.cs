@@ -52,12 +52,12 @@ namespace _MainNamespace
             adjacency.setWeight(6, 8, 6);
             adjacency.setWeight(7, 8, 13);
 
-            int[,] adjacencyMatrix = _02105AlgorithmsImplementations.TestingDataMST.createTestingAdjacencyMatrix();
+            var adjacencyMatrix = _02105AlgorithmsImplementations.TestingDataMst.createTestingAdjacencyMatrix();
 
 
             MinimumSpanningTrees.Pair[] kruskalMST = new MinimumSpanningTrees.Pair[V];
             Console.WriteLine("Kruskal MST:");
-            MinimumSpanningTrees.KruskalsAlgorithm.calculateAndPrintKruskalMST(V, adjacency, out kruskalMST);
+            MinimumSpanningTrees.KruskalsAlgorithm.CalculateAndPrintKruskalMst(V, adjacency, out kruskalMST);
 
             Console.WriteLine("Prim MST:");
             MinimumSpanningTrees.PrimsAlgorithm.PrimMst(adjacencyMatrix, V);

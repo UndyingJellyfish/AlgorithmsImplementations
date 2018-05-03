@@ -8,14 +8,14 @@ namespace MinimumSpanningTrees
 {
     public class KruskalsAlgorithm
     {
-        private static int[,] createWeightedAdjacencyMatrix(Adjacency adj)
+        private static int[,] CreateWeightedAdjacencyMatrix(Adjacency adj)
         {
-            int dims = adj.n;
-            int[,] adjancencies = new int[dims, dims];
+            var dims = adj.n;
+            var adjancencies = new int[dims, dims];
 
-            for (int i = 0; i < dims; i++)
+            for (var i = 0; i < dims; i++)
             {
-                for (int j = 0; j < dims; j++)
+                for (var j = 0; j < dims; j++)
                 {
                     adjancencies[i, j] = adj.getWeight(i, j);
                     if (!adj.getElementAt(i,j))
@@ -28,10 +28,10 @@ namespace MinimumSpanningTrees
         }
 
 
-        private static void quickSort(int p, int r, int aLength, Edge[] edges)
+        private static void QuickSort(int p, int r, int aLength, Edge[] edges)
         {
             int i = p, j = r, m = (i + j) / 2;
-            Edge x = edges[m];
+            var x = edges[m];
 
             do
             {
@@ -41,36 +41,33 @@ namespace MinimumSpanningTrees
                 while (edges[j].Weight > x.Weight)
                     j--;
 
-                if (i <= j)
-                {
-                    Edge temp = edges[i];
+                if (i > j) continue;
 
-                    edges[i] = edges[j];
-                    edges[j] = temp;
-                    i++;
-                    j--;
-                }
+                var temp = edges[i];
+                edges[i] = edges[j];
+                edges[j] = temp;
+                i++;
+                j--;
             }
             while (i <= j);
 
             if (p < j)
-                quickSort(p, j, aLength, edges);
+                QuickSort(p, j, aLength, edges);
 
             if (i < r)
-                quickSort(i, r, aLength, edges);
+                QuickSort(i, r, aLength, edges);
         }
 
-        public static Pair[] kruskalMST(int n, Adjacency adjacency)
+        public static Pair[] KruskalMst(int n, Adjacency adjacency)
         {
-            bool uFound, vFound;
             int i, j, k, l, m, u, v;
             int ULength, count = 0;
-            int[] U = new int[n];
-            int[] SLength = new int[n];
-            int[,] S = new int[n, n];
-            Pair[] A = new Pair[n * n];
+            var U = new int[n];
+            var SLength = new int[n];
+            var S = new int[n, n];
+            var A = new Pair[n * n];
 
-            int ALength = 0;
+            var aLength = 0;
 
             for (v = 0; v < n; v++)
             {
@@ -83,7 +80,7 @@ namespace MinimumSpanningTrees
                     if (adjacency.getElementAt(u, v))
                         count++;
 
-            Edge[] edges = new Edge[count];
+            var edges = new Edge[count];
 
             for (i = 0; i < count; i++)
                 edges[i] = new Edge();
@@ -92,16 +89,14 @@ namespace MinimumSpanningTrees
             {
                 for (v = u + 1; v < n; v++)
                 {
-                    if (adjacency.getElementAt(u, v))
-                    {
-                        edges[i].U = u;
-                        edges[i].V = v;
-                        edges[i++].Weight = adjacency.getWeight(u, v);
-                    }
+                    if (!adjacency.getElementAt(u, v)) continue;
+                    edges[i].U = u;
+                    edges[i].V = v;
+                    edges[i++].Weight = adjacency.getWeight(u, v);
                 }
             }
 
-            quickSort(0, count - 1, ALength, edges);
+            QuickSort(0, count - 1, aLength, edges);
 
             for (i = 0; i < count; i++)
             {
@@ -110,6 +105,7 @@ namespace MinimumSpanningTrees
                 u = edges[i].U;
                 v = edges[i].V;
 
+                bool uFound;
                 for (uFound = false, j = 0; !uFound && j < n; j++)
                 {
                     for (k = 0; !uFound && k < SLength[j]; k++)
@@ -119,6 +115,7 @@ namespace MinimumSpanningTrees
                             jIndex = j;
                     }
                 }
+                bool vFound;
                 for (vFound = false, l = 0; !vFound && l < n; l++)
                 {
                     for (m = 0; !vFound && m < SLength[l]; m++)
@@ -129,59 +126,57 @@ namespace MinimumSpanningTrees
                     }
                 }
 
-                if (jIndex != lIndex)
+                if (jIndex == lIndex) continue;
+                var pair = new Pair(u, v);
+
+                for (j = 0; j < aLength; j++)
+                    if (A[j].Equals(pair))
+                        break;
+                if (j == aLength)
+                    A[aLength++] = pair;
+
+                ULength = SLength[jIndex];
+
+                for (u = 0; u < ULength; u++)
+                    U[u] = S[jIndex, u];
+
+                for (u = 0; u < SLength[lIndex]; u++)
                 {
-                    Pair pair = new Pair(u, v);
+                    v = S[lIndex, u];
 
-                    for (j = 0; j < ALength; j++)
-                        if (A[j].Equals(pair))
-                            break;
-                    if (j == ALength)
-                        A[ALength++] = pair;
+                    for (vFound = false, j = 0; j < ULength; j++)
+                        vFound = v == U[j];
 
-                    ULength = SLength[jIndex];
-
-                    for (u = 0; u < ULength; u++)
-                        U[u] = S[jIndex, u];
-
-                    for (u = 0; u < SLength[lIndex]; u++)
-                    {
-                        v = S[lIndex, u];
-
-                        for (vFound = false, j = 0; j < ULength; j++)
-                            vFound = v == U[j];
-
-                        if (!vFound)
-                            U[ULength++] = v;
-                    }
-
-                    SLength[jIndex] = ULength;
-
-                    for (j = 0; j < ULength; j++)
-                        S[jIndex, j] = U[j];
-                    SLength[lIndex] = 0;
+                    if (!vFound)
+                        U[ULength++] = v;
                 }
+
+                SLength[jIndex] = ULength;
+
+                for (j = 0; j < ULength; j++)
+                    S[jIndex, j] = U[j];
+                SLength[lIndex] = 0;
             }
 
 
             return A;
         }
 
-        public static void printKruskalMST(Pair[] kruskalResult)
+        public static void PrintKruskalMst(Pair[] kruskalResult)
         {
-            for (int i = 0; i < kruskalResult.Length; i++)
+            foreach (var p in kruskalResult)
             {
-                if (kruskalResult[i] != null)
+                if (p != null)
                 {
-                    Console.WriteLine(kruskalResult[i].ToString() + "\r");
+                    Console.WriteLine(p.ToString() + "\r");
                 }
             }
         }
 
-        public static void calculateAndPrintKruskalMST(int n, Adjacency adjacency, out Pair[] pairs)
+        public static void CalculateAndPrintKruskalMst(int n, Adjacency adjacency, out Pair[] pairs)
         {
-            pairs = kruskalMST(n, adjacency);
-            printKruskalMST(pairs);
+            pairs = KruskalMst(n, adjacency);
+            PrintKruskalMst(pairs);
         }
     }
 }

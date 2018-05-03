@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace _02105AlgorithmsImplementations
 {
-    public class TestingDataMST
+    public class TestingDataMst
     {
-
-
         public static int[,] createTestingAdjacencyMatrix()
         {
-            int V = 9;
-            int[,] adjacencyMatrix = new int[V, V];
+            var V = 9;
+            var adjacencyMatrix = new int[V, V];
 
             #region adjacency adding
             // create adjacencies

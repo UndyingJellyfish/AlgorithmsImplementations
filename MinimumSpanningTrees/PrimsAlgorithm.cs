@@ -8,22 +8,21 @@ namespace MinimumSpanningTrees
 {
     public class PrimsAlgorithm
     {
-
         // A utility function to find the vertex with minimum key
         // value, from the set of vertices not yet included in MST
         private static int MinKey(int[] key, bool[] mstSet, int vert)
         {
             // Initialize min value
-            int min = int.MaxValue, min_index = -1;
+            int min = int.MaxValue, minIndex = -1;
 
-            for (int v = 0; v < vert; v++)
+            for (var v = 0; v < vert; v++)
                 if (mstSet[v] == false && key[v] < min)
                 {
                     min = key[v];
-                    min_index = v;
+                    minIndex = v;
                 }
 
-            return min_index;
+            return minIndex;
         }
 
         // A utility function to print the constructed MST stored in
@@ -31,7 +30,7 @@ namespace MinimumSpanningTrees
         private static void PrintMst(int[] parent, int n, int[,] graph, int v)
         {
             Console.WriteLine("Edge   Weight");
-            for (int i = 1; i < v; i++)
+            for (var i = 1; i < v; i++)
                 Console.WriteLine("" + n + parent[i] + " - " + i + "    " +
                                    graph[i,parent[i]]);
         }
@@ -41,16 +40,16 @@ namespace MinimumSpanningTrees
         public static void PrimMst(int[,] graph, int vert)
         {
             // Array to store constructed MST
-            int[] parent = new int[vert];
+            var parent = new int[vert];
 
             // Key values used to pick minimum weight edge in cut
-            int[] key = new int[vert];
+            var key = new int[vert];
 
             // To represent set of vertices not yet included in MST
-            bool[] mstSet = new bool[vert];
+            var mstSet = new bool[vert];
 
             // Initialize all keys as INFINITE
-            for (int i = 0; i < vert; i++)
+            for (var i = 0; i < vert; i++)
             {
                 key[i] = int.MaxValue;
                 mstSet[i] = false;
@@ -62,11 +61,11 @@ namespace MinimumSpanningTrees
             parent[0] = -1; // First node is always root of MST
 
             // The MST will have V vertices
-            for (int count = 0; count < vert - 1; count++)
+            for (var count = 0; count < vert - 1; count++)
             {
                 // Pick thd minimum key vertex from the set of vertices
                 // not yet included in MST
-                int u = MinKey(key, mstSet, vert);
+                var u = MinKey(key, mstSet, vert);
 
                 // Add the picked vertex to the MST Set
                 mstSet[u] = true;
@@ -74,7 +73,7 @@ namespace MinimumSpanningTrees
                 // Update key value and parent index of the adjacent
                 // vertices of the picked vertex. Consider only those
                 // vertices which are not yet included in MST
-                for (int v = 0; v < vert; v++)
+                for (var v = 0; v < vert; v++)
 
                     // graph[u][v] is non zero only for adjacent vertices of m
                     // mstSet[v] is false for vertices not yet included in MST

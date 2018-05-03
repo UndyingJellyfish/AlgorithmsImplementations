@@ -8,10 +8,11 @@ namespace MinimumSpanningTrees
 {
     public class Edge
     {
-        public Edge()
-        {
-            U = V = Weight = 0;
-        }
+        public int U { get; set; }
+
+        public int V { get; set; }
+
+        public int Weight { get; set; }
 
         public Edge(int u, int v, int weight)
         {
@@ -20,10 +21,8 @@ namespace MinimumSpanningTrees
             this.Weight = weight;
         }
 
-        public int U { get; set; }
-
-        public int V { get; set; }
-
-        public int Weight { get; set; }
+        public Edge() : this(0,0,0)
+        {
+        }
     }
 }
