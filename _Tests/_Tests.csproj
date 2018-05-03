@@ -55,10 +55,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SortingAlgorithms\Sorting.csproj">
-      <Project>{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}</Project>
-      <Name>Sorting</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{21FD205B-EB21-49B6-9132-F6F4E0F5CCB8}</Project>
       <Name>Utilities</Name>
