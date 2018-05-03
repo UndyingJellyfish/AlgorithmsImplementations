@@ -7,8 +7,8 @@
     <ProjectGuid>{7D2B1752-0183-4574-AA97-4CD522AB669C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EvilAlgorithmsFromHell</RootNamespace>
-    <AssemblyName>EvilAlgorithmsFromHell</AssemblyName>
+    <RootNamespace>Miscellaneous</RootNamespace>
+    <AssemblyName>Miscellaneous</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

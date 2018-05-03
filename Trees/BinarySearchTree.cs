@@ -33,27 +33,17 @@ namespace Trees
                 Root = nodeToAdd;
                 return true;
             }
-            else if (nodeToAdd.Key < currentNode.Key)
+            if (nodeToAdd.Key < currentNode.Key)
             {
-                if (currentNode.Left == null)
-                {
-                    currentNode.Left = nodeToAdd;
-                    return true;
-                }
-                return AddNode(nodeToAdd, currentNode.Left);
-
+                if (currentNode.Left != null) return AddNode(nodeToAdd, currentNode.Left);
+                currentNode.Left = nodeToAdd;
+                return true;
             }
-            else if (nodeToAdd.Key > currentNode.Key)
-            {
-                if (currentNode.Right == null)
-                {
-                    currentNode.Right = nodeToAdd;
-                    return true;
-                }
-                return AddNode(nodeToAdd, currentNode.Right);
-            }
+            if (nodeToAdd.Key <= currentNode.Key) return false;
 
-            return false;
+            if (currentNode.Right != null) return AddNode(nodeToAdd, currentNode.Right);
+            currentNode.Right = nodeToAdd;
+            return true;
         }
 
         public bool AddNode(int key, Node currentNode = null)
@@ -71,27 +61,23 @@ namespace Trees
         {
             // recursively writes out the left subtree until leafs are hit
             // then writes the active node, and finally writes the right subtree until no nodes remain
-            // ultimately the result is an ordered list of the keys
+            // ultimately the result is an ordered list of the keys (also known as in-order traversal)
+            
+            if (currentNode == null) return;
 
-            //Console.WriteLine( currentNode == null ? "currentNode is null" : "currentNode is not null");
-
-            if (currentNode != null)
-            {
-                DisplayTree(currentNode.Left);
-                System.Console.Write(currentNode + " ");
-                DisplayTree(currentNode.Right);
-            }
+            DisplayTree(currentNode.Left);
+            Console.Write(currentNode + " ");
+            DisplayTree(currentNode.Right);
         }
 
         public List<Node> GetPriorityNodes(Node currentNode)
         {
-            List<Node> results = new List<Node>();
-            if (currentNode != null)
-            {
-                results.AddRange(GetPriorityNodes(currentNode.Left));
-                results.Add(currentNode);
-                results.AddRange(GetPriorityNodes(currentNode.Right));
-            }
+            var results = new List<Node>();
+            if (currentNode == null) return results;
+
+            results.AddRange(GetPriorityNodes(currentNode.Left));
+            results.Add(currentNode);
+            results.AddRange(GetPriorityNodes(currentNode.Right));
             return results;
 
         }

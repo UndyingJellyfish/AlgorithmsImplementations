@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SortingAlgorithms
+namespace Sorting
 {
     public class QuickSort<T> where T : struct,  IComparable<T>
     {

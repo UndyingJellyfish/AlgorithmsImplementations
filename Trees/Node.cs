@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
-    class Node
+    internal class Node
     {
         public int Key { get; set; }
         public Object Value { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SortingAlgorithms;
+using Sorting;
 
 namespace _Tests.Sorting
 {

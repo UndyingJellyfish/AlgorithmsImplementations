@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 
-namespace EvilAlgorithmsFromHell
+namespace Miscellaneous
 {
     public class AckermannsFunction
     {
