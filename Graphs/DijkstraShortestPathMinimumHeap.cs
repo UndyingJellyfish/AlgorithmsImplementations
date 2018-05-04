@@ -6,7 +6,8 @@ namespace Graphs
     public class DijkstraShortestPathMinimumHeap<TCost,TValue> where TCost : struct, IComparable
     {
         public int HeapSize { get; private set; }
-        public List<Node<TCost, TValue>> Nodes { get; }
+        public List<Node<TCost, TValue>> Nodes { get; private set; }
+        public int Size() => HeapSize;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DijkstraShortestPathMinimumHeap{TCost,TValue}"/> class.
@@ -23,7 +24,7 @@ namespace Graphs
         }
 
         /// <summary>
-        /// Swaps the values in the heap and index i and j
+        /// Swaps the values in the heap at index i and j
         /// </summary>
         /// <param name="i">First swap index</param>
         /// <param name="j">Second swap index.</param>
@@ -40,21 +41,24 @@ namespace Graphs
         /// <param name="i">Index at which maintainance should start, defaults to 0.</param>
         private void Heapify(int i = 0)
         {
-            var l = 2 * i + 1;
-            var r = 2 * i + 2;
-            int largest;
+            while (true)
+            {
+                var l = 2 * i + 1;
+                var r = 2 * i + 2;
+                int largest;
 
 
-            if (l < HeapSize && Nodes[l].TotalDistance.CompareTo(Nodes[i].TotalDistance) > 0)
-                largest = l;
-            else
-                largest = i;
-            if (r < HeapSize && Nodes[r].TotalDistance.CompareTo(Nodes[largest].TotalDistance) > 0)
-                largest = r;
-            if (largest == i) return;
+                if (l < HeapSize && Nodes[l].TotalDistance.CompareTo(Nodes[i].TotalDistance) > 0)
+                    largest = l;
+                else
+                    largest = i;
+                if (r < HeapSize && Nodes[r].TotalDistance.CompareTo(Nodes[largest].TotalDistance) > 0)
+                    largest = r;
+                if (largest == i) return;
 
-            Exchange(i, largest);
-            Heapify(largest);
+                Exchange(i, largest);
+                i = largest;
+            }
         }
 
         /// <summary>
@@ -91,11 +95,11 @@ namespace Graphs
         /// </summary>
         public void HeapSort()
         {
-            int temp = HeapSize;
+            var temp = HeapSize;
 
             BuildHeap();
 
-            for (int i = HeapSize - 1; i >= 1; i--)
+            for (var i = HeapSize - 1; i >= 1; i--)
             {
                 Exchange(0, i);
                 HeapSize--;
@@ -131,14 +135,6 @@ namespace Graphs
             return HeapSearch(n);
         }
 
-        /// <summary>
-        /// Synonym for HeapSize.
-        /// </summary>
-        /// <returns>Size of the heap; the amount of elements currently stored in the heap.</returns>
-        public int Size()
-        {
-            return HeapSize;
-        }
-
+        
     }
 }
