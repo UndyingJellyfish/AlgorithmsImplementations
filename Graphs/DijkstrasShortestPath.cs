@@ -41,13 +41,14 @@ namespace Graphs
 
             // TODO: find out how to handle adjacencies in a generic graph
             var w = adjacencies[u].Find(n => n.To.Equals(v)).Cost;
-
             // TODO: Consider constraining TCost to be an arithmetic type
+            /*
             if (v.TotalDistance.CompareTo(u.TotalDistance + w) > 0)
             {
                 v.TotalDistance = u.TotalDistance + w;
                 v.Predecessor = u;
             }
+            */
         }
 
 

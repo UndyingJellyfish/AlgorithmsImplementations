@@ -76,9 +76,9 @@ namespace Sorting
         {
             // TODO: This might help: https://stackoverflow.com/questions/2685035/is-there-a-good-radixsort-implementation-for-floats-in-c-sharp
             // otherwise this might: https://webcache.googleusercontent.com/search?q=cache:DPuhAHY36CAJ:https://gist.github.com/StagPoint/44aebfb6960c3f5fdd6f25862827ec43+&cd=4&hl=en&ct=clnk&gl=dk
-            if (typeof(T) == typeof(float) || typeof(T) == typeof(double) || typeof(T) == typeof(decimal))
+            if (typeof(T) == typeof(char) || typeof(T) == typeof(float) || typeof(T) == typeof(double) || typeof(T) == typeof(decimal))
             {
-                throw new NotImplementedException("Radix sort with float, double or decimal is not yet supported, use another sorting algorithm.");
+                throw new NotImplementedException("Radix sort with char, float, double or decimal is not yet supported, use another sorting algorithm.");
             }
 
             var buckets = new List<List<T>>(Base);
