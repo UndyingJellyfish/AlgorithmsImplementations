@@ -8,37 +8,39 @@ namespace Graphs
     /// </summary>
     public class SingleShortestPath<TCost, TValue> where TCost : struct, IComparable
     {
-
-        private List<Node<TCost, TValue>> AllNodes { get; set; }
+        private List<Node<TCost, TValue>> Nodes { get; }
         public Node<TCost, TValue> SourceNode { get; }
         public Node<TCost, TValue> TargetNode { get; }
+        public DijkstraShortestPathMinimumHeap<TCost, TValue> MinHeap { get; set; }
+        public Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> Adjacencies { get; set; }
 
 
         public SingleShortestPath(List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source,
             Node<TCost, TValue> target)
         {
-            this.AllNodes = nodes;
+            this.Nodes = nodes;
             this.SourceNode = source;
             this.TargetNode = target;
 
             // add source and target to node list if they don't exist in list
-            if (AllNodes.Find(x => x.Equals(SourceNode)) is null)
+            if (Nodes.Find(x => x.Equals(SourceNode)) is null)
             {
-                AllNodes.Add(SourceNode);
+                Nodes.Add(SourceNode);
             }
-            if (AllNodes.Find(x => x.Equals(TargetNode)) is null)
+            if (Nodes.Find(x => x.Equals(TargetNode)) is null)
             {
-                AllNodes.Add(TargetNode);
+                Nodes.Add(TargetNode);
             }
 
             void InitializeSingleSource()
             {
-                foreach (var v in AllNodes)
+                this.MinHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(nodes);
+                foreach (var v in Nodes)
                 {
                     v.SetTotalDistanceAsMaxValue();
                     v.Predecessor = null;
                 }
-                AllNodes.Find(n => n.Equals(SourceNode)).SetTotalDistanceAsMaxValue();
+                Nodes.Find(n => n.Equals(SourceNode)).SetTotalDistanceAsMaxValue();
             }
             InitializeSingleSource();
         }
@@ -50,11 +52,10 @@ namespace Graphs
         /// <param name="u">The node that is being considered</param>
         /// <param name="v">The potential optimizable target</param>
         /// <param name="adjacencies">Adjacency dictionary, each node should have a corresponding key.</param>
-        private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies)
+        private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v)
         {
-
             // TODO: find out how to handle adjacencies in a generic graph
-            var w = adjacencies[u].Find(n => n.To.Equals(v)).Cost;
+            var w = Adjacencies[u].Find(n => n.To.Equals(v)).Cost;
             // TODO: Consider constraining TCost to be an arithmetic type
             /*
             if (v.TotalDistance.CompareTo(u.TotalDistance + w) > 0)
@@ -70,32 +71,24 @@ namespace Graphs
         /// Performs Dijkstra's Single Shortest Path algorithm on a supplied graph. 
         /// (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
         /// </summary>
-        /// <param name="nodes">The list of nodes is treated as a graph.</param>
-        /// <param name="adjacencies">Adjacency dictionary, each node should have a corresponding key.</param>
-        /// <param name="targetX">The destination x coordinate.</param>
-        /// <param name="targetY">The destination y coordinate.</param>
         /// <returns>The shortest path from the source to the target.</returns>
-        public List<Node<TCost, TValue>> DijkstraSingleShortestPath(List<Node<TCost, TValue>> nodes, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies)
+        public List<Node<TCost, TValue>> DijkstraSingleShortestPath()
         {
-            // don't actually need this, as we are initializing the nodes with the correct fields instead
-            //InitializeSingleSource(nodes, 0, 0); 
+            MinHeap.BuildHeap();
 
-            var minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(nodes);
-            minHeap.BuildHeap();
-
-            while (minHeap.Size() != 0)
+            while (MinHeap.Size() != 0)
             {
-                var u = minHeap.ExtractMin();
-                var uAdj = adjacencies[u];
+                var u = MinHeap.ExtractMin();
+                var uAdj = Adjacencies[u];
                 foreach (var adj in uAdj)
                 {
                     var v = adj.To;
-                    Relax(u, v, adjacencies);
+                    Relax(u, v);
                 }
             }
 
             var shortestPath = new List<Node<TCost, TValue>>(); // used to store the final path
-            var currentNode = nodes.Find(n => n.Equals(TargetNode));
+            var currentNode = Nodes.Find(n => n.Equals(TargetNode));
             shortestPath.Add(currentNode);
 
             while (currentNode.Predecessor != null)
