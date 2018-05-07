@@ -9,23 +9,25 @@ namespace Graphs
     /// </summary>
     public class SingleShortestPath<TCost, TValue> where TCost : struct, IComparable
     {
-        private List<Node<TCost, TValue>> Nodes { get; }
+        public List<Node<TCost, TValue>> Nodes { get; }
+        public List<Node<TCost,TValue>> ShortestPath { get; }
         public Node<TCost, TValue> SourceNode { get; }
         public Node<TCost, TValue> TargetNode { get; }
         public DijkstraShortestPathMinimumHeap<TCost, TValue> MinHeap { get; set; }
         public Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> Adjacencies { get; set; }
 
-        private Calculator<TCost> Calculator { get; set; }
+        private Calculator<TCost> Calculator { get; }
         private Calculator<TCost> C => Calculator;
-        private TCost Add(object val1, object val2) => C.Add((TCost)val1, GenericConversions<TCost>.Generify(val2));
 
-        public SingleShortestPath(List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source,
+        public SingleShortestPath(List<Node<TCost, TValue>> nodes, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies, Node<TCost, TValue> source,
             Node<TCost, TValue> target, Calculator<TCost> calc)
         {
             this.Nodes = nodes;
+            this.Adjacencies = adjacencies;
             this.SourceNode = source;
             this.TargetNode = target;
             this.Calculator = calc;
+            this.ShortestPath = new List<Node<TCost, TValue>>();
 
             // add source and target to node list if they don't exist in list
             if (Nodes.Find(x => x.Equals(SourceNode)) is null)
@@ -56,7 +58,6 @@ namespace Graphs
         /// </summary>
         /// <param name="u">The node that is being considered</param>
         /// <param name="v">The potential optimizable target</param>
-        /// <param name="adjacencies">Adjacency dictionary, each node should have a corresponding key.</param>
         private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v)
         {
             var w = Adjacencies[u].Find(n => n.To.Equals(v)).Cost;
@@ -88,21 +89,20 @@ namespace Graphs
                     Relax(u, v);
                 }
             }
-
-            var shortestPath = new List<Node<TCost, TValue>>(); // used to store the final path
+            
             var currentNode = Nodes.Find(n => n.Equals(TargetNode));
-            shortestPath.Add(currentNode);
+            ShortestPath.Add(currentNode);
 
             while (currentNode.Predecessor != null)
             {
                 // trace our path backwards through the predecessors until a predecessor is undefined
                 // the only node on the path without a predecessor is the source
-                shortestPath.Add(currentNode.Predecessor);
+                ShortestPath.Add(currentNode.Predecessor);
                 currentNode = currentNode.Predecessor;
             }
-            shortestPath.Reverse();
+            ShortestPath.Reverse();
 
-            return shortestPath;
+            return ShortestPath;
         }
     }
 }
