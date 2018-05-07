@@ -10,16 +10,32 @@ namespace Graphs
     {
 
         private List<Node<TCost, TValue>> AllNodes { get; set; }
-        public Node<TCost, TValue> SourceNode { get; private set; }
-        public Node<TCost, TValue> TargetNode { get; private set; }
+        public Node<TCost, TValue> SourceNode { get; }
+        public Node<TCost, TValue> TargetNode { get; }
 
+
+        public SingleShortestPath(List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source,
+            Node<TCost, TValue> target)
+        {
+            this.AllNodes = nodes;
+            this.SourceNode = source;
+            this.TargetNode = target;
+
+            // add source and target to node list if they don't exist in list
+            if (AllNodes.Find(x => x.Equals(SourceNode)) is null)
+            {
+                AllNodes.Add(SourceNode);
+            }
+            if (AllNodes.Find(x => x.Equals(TargetNode)) is null)
+            {
+                AllNodes.Add(TargetNode);
+            }
+        }
 
         /// <summary>
         /// Initializes the single source shortest path.
         /// </summary>
         /// <param name="nodes">A list of nodes in the graph structure.</param>
-        /// <param name="sourceX">The source x coordinate.</param>
-        /// <param name="sourceY">The source y coordinate.</param>
         private void InitializeSingleSource(List<Node<int, TValue>> nodes)
         {
             foreach (var v in nodes)
