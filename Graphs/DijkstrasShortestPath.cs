@@ -30,24 +30,22 @@ namespace Graphs
             {
                 AllNodes.Add(TargetNode);
             }
-        }
 
-        /// <summary>
-        /// Initializes the single source shortest path.
-        /// </summary>
-        /// <param name="nodes">A list of nodes in the graph structure.</param>
-        private void InitializeSingleSource(List<Node<int, TValue>> nodes)
-        {
-            foreach (var v in nodes)
+            void InitializeSingleSource()
             {
-                v.SetTotalDiostanceAsMaxValue();
-                v.Predecessor = null;
+                foreach (var v in AllNodes)
+                {
+                    v.SetTotalDistanceAsMaxValue();
+                    v.Predecessor = null;
+                }
+                AllNodes.Find(n => n.Equals(SourceNode)).SetTotalDistanceAsMaxValue();
             }
-            nodes.Find(n => n.Equals(SourceNode)).TotalDistance = 0;
+            InitializeSingleSource();
         }
 
+        
         /// <summary>
-        /// Relaxes the node weøre "standing in". (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
+        /// Relaxes the node we're "standing in". (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
         /// </summary>
         /// <param name="u">The node that is being considered</param>
         /// <param name="v">The potential optimizable target</param>

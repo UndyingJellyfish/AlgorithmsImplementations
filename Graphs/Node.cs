@@ -15,7 +15,7 @@ namespace Graphs
         {
             Edges = new List<Edge<TCost, TValue>>();
             Value = val;
-            SetTotalDiostanceAsMaxValue();
+            SetTotalDistanceAsMaxValue();
             Predecessor = null;
         }
 
@@ -33,7 +33,7 @@ namespace Graphs
         }
 
 
-        public void SetTotalDiostanceAsMaxValue()
+        public void SetTotalDistanceAsMaxValue()
         {
             // reflection solution found at:
             // https://stackoverflow.com/questions/18180674/detect-maxvalue-of-generic-parameter
