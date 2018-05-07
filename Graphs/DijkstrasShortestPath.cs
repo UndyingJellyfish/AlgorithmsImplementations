@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Utilities;
 
 namespace Graphs
 {
@@ -14,13 +15,17 @@ namespace Graphs
         public DijkstraShortestPathMinimumHeap<TCost, TValue> MinHeap { get; set; }
         public Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> Adjacencies { get; set; }
 
+        private Calculator<TCost> Calculator { get; set; }
+        private Calculator<TCost> C => Calculator;
+        private TCost Add(object val1, object val2) => C.Add((TCost)val1, GenericConversions<TCost>.Generify(val2));
 
         public SingleShortestPath(List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source,
-            Node<TCost, TValue> target)
+            Node<TCost, TValue> target, Calculator<TCost> calc)
         {
             this.Nodes = nodes;
             this.SourceNode = source;
             this.TargetNode = target;
+            this.Calculator = calc;
 
             // add source and target to node list if they don't exist in list
             if (Nodes.Find(x => x.Equals(SourceNode)) is null)
@@ -54,16 +59,13 @@ namespace Graphs
         /// <param name="adjacencies">Adjacency dictionary, each node should have a corresponding key.</param>
         private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v)
         {
-            // TODO: find out how to handle adjacencies in a generic graph
             var w = Adjacencies[u].Find(n => n.To.Equals(v)).Cost;
-            // TODO: Consider constraining TCost to be an arithmetic type
-            /*
-            if (v.TotalDistance.CompareTo(u.TotalDistance + w) > 0)
+
+            if (v.TotalDistance.CompareTo(C.Add(u.TotalDistance, w)) > 0)
             {
-                v.TotalDistance = u.TotalDistance + w;
+                v.TotalDistance = C.Add(u.TotalDistance, w);
                 v.Predecessor = u;
             }
-            */
         }
 
 
