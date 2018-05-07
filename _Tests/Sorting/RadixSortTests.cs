@@ -11,9 +11,9 @@ namespace _Tests.Sorting
         [TestMethod]
         public void TestSortingIntsNonGeneric()
         {
-            var ints = new List<int>{ 3,5,1,8,2 };
+            var ints = new List<int> { 3, 5, 1, 8, 2 };
             ints = RadixSort.Sort(ints);
-            var expected = new List<int> {1, 2, 3, 5, 8};
+            var expected = new List<int> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, ints.Count);
             for (int i = 0; i < ints.Count; i++)
             {
@@ -21,7 +21,7 @@ namespace _Tests.Sorting
             }
         }
 
-                [TestMethod]
+        [TestMethod]
         public void TestSortingSBytesGeneric()
         {
             var sbytes = new List<sbyte> { 3, 5, 1, 8, 2 };
@@ -188,9 +188,5 @@ namespace _Tests.Sorting
                 Assert.AreEqual(expected[i], decimals[i]);
             }
         }
-
-
-
-
     }
 }

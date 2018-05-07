@@ -8,28 +8,36 @@ namespace Graphs
     {
         public bool GraphIsDirected { get; private set; }
         public TCost Cost { get; set; }
-        public TCost Flow { get; set; }
-        public TCost Capacity { get; set; }
+        //public TCost Flow { get; set; }
+        //public TCost Capacity { get; set; }
         public Node<TCost, TValue> From { get; set; }
         public Node<TCost, TValue> To { get; set; }
 
-        protected Edge(bool directed, Node<TCost, TValue> from, Node<TCost, TValue> to, TCost tco)
+        /// <summary>
+        /// Creates a new edge going from one note to another for some cost.
+        /// </summary>
+        /// <param name="from">Where edge starts.</param>
+        /// <param name="to">Where edge ends.</param>
+        /// <param name="cost">Cost of edge.</param>
+        /// <param name="directed">Whether the graph is directed or not.</param>
+        public Edge(Node<TCost, TValue> from, Node<TCost, TValue> to, TCost cost, bool directed = true)
         {
             this.GraphIsDirected = directed;
             this.From = from;
             this.To = to;
-            this.Cost = tco;
+            this.Cost = cost;
         }
-
-        protected Edge(bool directed, Node<TCost, TValue> from, Node<TCost, TValue> to, TCost tco, TCost tf) : this(directed, from, to, tco)
+        /*
+        protected Edge(Node<TCost, TValue> from, Node<TCost, TValue> to, TCost tco, TCost tf, bool directed = true) : this(from, to, tco, directed)
         {
             this.Flow = tf;
         }
 
-        protected Edge(bool directed, Node<TCost, TValue> from, Node<TCost, TValue> to, TCost tco, TCost tf, TCost tca) : this( directed, from, to, tco, tf)
+        protected Edge(Node<TCost, TValue> from, Node<TCost, TValue> to, TCost tco, TCost tf, TCost tca, bool directed = true) : this(from, to, tco, tf, directed)
         {
             this.Capacity = tca;
         }
+        */
 
         public int CompareTo(object obj)
         {

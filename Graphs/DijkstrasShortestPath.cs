@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Utilities;
 
 namespace Graphs
@@ -15,6 +17,7 @@ namespace Graphs
         public Node<TCost, TValue> TargetNode { get; }
         public DijkstraShortestPathMinimumHeap<TCost, TValue> MinHeap { get; set; }
         public Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> Adjacencies { get; set; }
+        public TCost ShortestPathDistance =>  TargetNode.TotalDistance;
 
         private Calculator<TCost> Calculator { get; }
         private Calculator<TCost> C => Calculator;
@@ -44,10 +47,20 @@ namespace Graphs
                 this.MinHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(nodes);
                 foreach (var v in Nodes)
                 {
-                    v.SetTotalDistanceAsMaxValue();
+                    //v.SetTotalDistanceAsMaxValue();
                     v.Predecessor = null;
                 }
-                Nodes.Find(n => n.Equals(SourceNode)).SetTotalDistanceAsMaxValue();
+                Nodes.Find(n => n.Equals(SourceNode)).SetTotalDistanceAsDefaultValue();
+
+                foreach (var pair in Adjacencies)
+                {
+                    var u = pair.Key;
+                    var edges = pair.Value;
+                    foreach (var edge in edges)
+                    {
+                        u.AddEdge(edge);
+                    }
+                }
             }
             InitializeSingleSource();
         }
@@ -60,7 +73,7 @@ namespace Graphs
         /// <param name="v">The potential optimizable target</param>
         private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v)
         {
-            var w = Adjacencies[u].Find(n => n.To.Equals(v)).Cost;
+            var w = u.Edges.Find(e => e.To.Equals(v)).Cost;
 
             if (v.TotalDistance.CompareTo(C.Add(u.TotalDistance, w)) > 0)
             {
@@ -82,12 +95,21 @@ namespace Graphs
             while (MinHeap.Size() != 0)
             {
                 var u = MinHeap.ExtractMin();
-                var uAdj = Adjacencies[u];
+                //var uAdj = Adjacencies[u];
+
+                var valueOfNodeToLookFor = u.Value;
+
+                Console.WriteLine(valueOfNodeToLookFor);
+
+                var uAdj = u.Edges;
+                
                 foreach (var adj in uAdj)
                 {
                     var v = adj.To;
                     Relax(u, v);
                 }
+
+                u = null;
             }
             
             var currentNode = Nodes.Find(n => n.Equals(TargetNode));

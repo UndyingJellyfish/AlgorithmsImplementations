@@ -49,20 +49,44 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sorting\DijkstraShortestPathTests.cs" />
     <Compile Include="Sorting\RadixSortTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Graphs\Graphs.csproj">
+      <Project>{404748a4-edf4-442d-86d2-8bb090322e39}</Project>
+      <Name>Graphs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MinimumSpanningTrees\MinimumSpanningTrees.csproj">
+      <Project>{51f73f6c-962d-4d37-8fe3-7503d9ad1926}</Project>
+      <Name>MinimumSpanningTrees</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Miscellaneous\Miscellaneous.csproj">
+      <Project>{7d2b1752-0183-4574-aa97-4cd522ab669c}</Project>
+      <Name>Miscellaneous</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sorting\Sorting.csproj">
       <Project>{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}</Project>
       <Name>Sorting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Strings\Strings.csproj">
+      <Project>{fa45bd83-2da5-47a7-ace1-950bbac6d128}</Project>
+      <Name>Strings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trees\Trees.csproj">
+      <Project>{dd4fb56c-c3b7-4d4d-beb7-f1cbd85682f0}</Project>
+      <Name>Trees</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{21FD205B-EB21-49B6-9132-F6F4E0F5CCB8}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphs\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

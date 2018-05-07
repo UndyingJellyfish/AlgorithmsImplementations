@@ -31,7 +31,7 @@ namespace MinimumSpanningTrees
         {
             Console.WriteLine("Edge   Weight");
             for (var i = 1; i < v; i++)
-                Console.WriteLine("" + n + parent[i] + " - " + i + "    " +
+                Console.WriteLine(parent[i] + " - " + i + "    " +
                                    graph[i,parent[i]]);
         }
 
