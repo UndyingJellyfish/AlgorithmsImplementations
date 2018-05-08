@@ -29,10 +29,7 @@ namespace _Tests.Sorting
             sbytes = radixSort.Sort(sbytes);
             var expected = new List<sbyte> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, sbytes.Count);
-            for (int i = 0; i < sbytes.Count; i++)
-            {
-                Assert.AreEqual(expected[i], sbytes[i]);
-            }
+            CollectionAssert.AreEqual(expected, sbytes);
         }
 
         [TestMethod]
@@ -43,10 +40,7 @@ namespace _Tests.Sorting
             bytes = radixSort.Sort(bytes);
             var expected = new List<byte> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, bytes.Count);
-            for (int i = 0; i < bytes.Count; i++)
-            {
-                Assert.AreEqual(expected[i], bytes[i]);
-            }
+            CollectionAssert.AreEqual(expected, bytes);
         }
 
         [TestMethod]
@@ -57,10 +51,7 @@ namespace _Tests.Sorting
             chars = radixSort.Sort(chars);
             var expected = new List<char> { 'a', 'h', 'n', 'q', 'y' };
             Assert.AreEqual(expected.Count, chars.Count);
-            for (int i = 0; i < chars.Count; i++)
-            {
-                Assert.AreEqual(expected[i], chars[i]);
-            }
+            CollectionAssert.AreEqual(expected, chars);
         }
 
         [TestMethod]
@@ -71,10 +62,7 @@ namespace _Tests.Sorting
             shorts = radixSort.Sort(shorts);
             var expected = new List<short> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, shorts.Count);
-            for (int i = 0; i < shorts.Count; i++)
-            {
-                Assert.AreEqual(expected[i], shorts[i]);
-            }
+            CollectionAssert.AreEqual(expected, shorts);
         }
 
         [TestMethod]
@@ -85,10 +73,7 @@ namespace _Tests.Sorting
             ushorts = radixSort.Sort(ushorts);
             var expected = new List<ushort> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, ushorts.Count);
-            for (int i = 0; i < ushorts.Count; i++)
-            {
-                Assert.AreEqual(expected[i], ushorts[i]);
-            }
+            CollectionAssert.AreEqual(expected, ushorts);
         }
 
         [TestMethod]
@@ -99,24 +84,18 @@ namespace _Tests.Sorting
             ints = radixSort.Sort(ints);
             var expected = new List<int> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, ints.Count);
-            for (int i = 0; i < ints.Count; i++)
-            {
-                Assert.AreEqual(expected[i], ints[i]);
-            }
+            CollectionAssert.AreEqual(expected, ints);
         }
 
         [TestMethod]
         public void TestSortingUIntsGeneric()
         {
-            var units = new List<uint> { 3, 5, 1, 8, 2 };
+            var uints = new List<uint> { 3, 5, 1, 8, 2 };
             var radixSort = new RadixSort<uint>(new UInt.Calculator());
-            units = radixSort.Sort(units);
+            uints = radixSort.Sort(uints);
             var expected = new List<uint> { 1, 2, 3, 5, 8 };
-            Assert.AreEqual(expected.Count, units.Count);
-            for (int i = 0; i < units.Count; i++)
-            {
-                Assert.AreEqual(expected[i], units[i]);
-            }
+            Assert.AreEqual(expected.Count, uints.Count);
+            CollectionAssert.AreEqual(expected, uints);
         }
 
         [TestMethod]
@@ -127,10 +106,7 @@ namespace _Tests.Sorting
             longs = radixSort.Sort(longs);
             var expected = new List<long> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, longs.Count);
-            for (int i = 0; i < longs.Count; i++)
-            {
-                Assert.AreEqual(expected[i], longs[i]);
-            }
+            CollectionAssert.AreEqual(expected, longs);
         }
 
         [TestMethod]
@@ -141,10 +117,7 @@ namespace _Tests.Sorting
             ulongs = radixSort.Sort(ulongs);
             var expected = new List<ulong> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, ulongs.Count);
-            for (int i = 0; i < ulongs.Count; i++)
-            {
-                Assert.AreEqual(expected[i], ulongs[i]);
-            }
+            CollectionAssert.AreEqual(expected, ulongs);
         }
 
         [TestMethod]
@@ -155,10 +128,7 @@ namespace _Tests.Sorting
             floats = radixSort.Sort(floats);
             var expected = new List<float> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, floats.Count);
-            for (int i = 0; i < floats.Count; i++)
-            {
-                Assert.AreEqual(expected[i], floats[i]);
-            }
+            CollectionAssert.AreEqual(expected, floats);
         }
 
         [TestMethod]
@@ -169,10 +139,7 @@ namespace _Tests.Sorting
             doubles = radixSort.Sort(doubles);
             var expected = new List<double> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, doubles.Count);
-            for (int i = 0; i < doubles.Count; i++)
-            {
-                Assert.AreEqual(expected[i], doubles[i]);
-            }
+            CollectionAssert.AreEqual(expected, doubles);
         }
 
         [TestMethod]
@@ -183,10 +150,7 @@ namespace _Tests.Sorting
             decimals = radixSort.Sort(decimals);
             var expected = new List<decimal> { 1, 2, 3, 5, 8 };
             Assert.AreEqual(expected.Count, decimals.Count);
-            for (int i = 0; i < decimals.Count; i++)
-            {
-                Assert.AreEqual(expected[i], decimals[i]);
-            }
+            CollectionAssert.AreEqual(expected, decimals);
         }
     }
 }

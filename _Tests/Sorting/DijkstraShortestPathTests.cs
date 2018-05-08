@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Graphs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -54,8 +55,12 @@ namespace _Tests.Sorting
             var dijkstra = new SingleShortestPath<int, char>(nodes, adjacencies, ns, nt, calc);
             dijkstra.DijkstraSingleShortestPath();
             var result = dijkstra.ShortestPath;
+            var expected = new List<Node<int, char>> { ns, n6, n5, n4, nt};
+
             var length = dijkstra.ShortestPathDistance;
-            Assert.AreEqual(length, 25);
+            Assert.AreEqual(25, length);
+            CollectionAssert.AreEqual(result, expected);
+            
         }
     }
 }
