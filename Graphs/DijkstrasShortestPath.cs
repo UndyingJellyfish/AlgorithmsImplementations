@@ -7,52 +7,68 @@ using Utilities;
 namespace Graphs
 {
     /// <summary>
-    /// Contains the algorithms for calculating the single shortest path in a graph.
+    /// Calculates the single shortest path in a given graph.
     /// </summary>
     public class SingleShortestPath<TCost, TValue> where TCost : struct, IComparable
     {
-        public List<Node<TCost, TValue>> Nodes { get; }
-        public List<Node<TCost,TValue>> ShortestPath { get; }
-        public Node<TCost, TValue> SourceNode { get; }
-        public Node<TCost, TValue> TargetNode { get; }
-        public DijkstraShortestPathMinimumHeap<TCost, TValue> MinHeap { get; set; }
-        public Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> Adjacencies { get; set; }
-        public TCost ShortestPathDistance =>  TargetNode.TotalDistance;
-
-        private Calculator<TCost> Calculator { get; }
+        public Graph<TCost,TValue> Graph { get; set; } // TODO: ACTUALLY USE THIS
+        
+        public List<Node<TCost, TValue>> Nodes
+        {
+            get => _nodes;
+            set => _nodes = value;
+        }
+        public Node<TCost, TValue> SourceNode
+        {
+            get => _sourceNode;
+            set => _sourceNode = value;
+        }
+        public Node<TCost, TValue> TargetNode
+        {
+            get => _targetNode;
+            set => _targetNode = value;
+        }
+        public Calculator<TCost> Calculator => _calculator;
+        public List<Node<TCost, TValue>> ShortestPath => _shortestPath;
+        public TCost ShortestPathDistance => _targetNode.TotalDistance;
+        
+        private List<Node<TCost, TValue>> _nodes { get; set; }
+        private List<Node<TCost, TValue>> _shortestPath { get; }
+        private Node<TCost, TValue> _sourceNode { get; set; }
+        private Node<TCost, TValue> _targetNode { get; set; }
+        private Calculator<TCost> _calculator { get; }
+        private DijkstraShortestPathMinimumHeap<TCost, TValue> _minHeap { get; set; }
         private Calculator<TCost> C => Calculator;
 
         public SingleShortestPath(List<Node<TCost, TValue>> nodes, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies, Node<TCost, TValue> source,
             Node<TCost, TValue> target, Calculator<TCost> calc)
         {
-            this.Nodes = nodes;
-            this.Adjacencies = adjacencies;
-            this.SourceNode = source;
-            this.TargetNode = target;
-            this.Calculator = calc;
-            this.ShortestPath = new List<Node<TCost, TValue>>();
+            this._nodes = nodes;
+            this._sourceNode = source;
+            this._targetNode = target;
+            this._calculator = calc;
+            this._shortestPath = new List<Node<TCost, TValue>>();
 
             // add source and target to node list if they don't exist in list
-            if (Nodes.Find(x => x.Equals(SourceNode)) is null)
+            if (_nodes.Find(x => x.Equals(_sourceNode)) is null)
             {
-                Nodes.Add(SourceNode);
+                _nodes.Add(_sourceNode);
             }
-            if (Nodes.Find(x => x.Equals(TargetNode)) is null)
+            if (_nodes.Find(x => x.Equals(_targetNode)) is null)
             {
-                Nodes.Add(TargetNode);
+                _nodes.Add(_targetNode);
             }
 
             void InitializeSingleSource()
             {
-                this.MinHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(nodes);
-                foreach (var v in Nodes)
+                this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(nodes);
+                foreach (var v in _nodes)
                 {
-                    //v.SetTotalDistanceAsMaxValue();
                     v.Predecessor = null;
                 }
-                Nodes.Find(n => n.Equals(SourceNode)).SetTotalDistanceAsDefaultValue();
+                _nodes.Find(n => n.Equals(_sourceNode)).SetTotalDistanceAsDefaultValue();
 
-                foreach (var pair in Adjacencies)
+                foreach (var pair in adjacencies)
                 {
                     var u = pair.Key;
                     var edges = pair.Value;
@@ -64,7 +80,6 @@ namespace Graphs
             }
             InitializeSingleSource();
         }
-
         
         /// <summary>
         /// Relaxes the node we're "standing in". (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
@@ -75,14 +90,12 @@ namespace Graphs
         {
             var w = u.Edges.Find(e => e.To.Equals(v)).Cost;
 
-            if (v.TotalDistance.CompareTo(C.Add(u.TotalDistance, w)) > 0)
-            {
-                v.TotalDistance = C.Add(u.TotalDistance, w);
-                v.Predecessor = u;
-            }
+            if (v.TotalDistance.CompareTo(C.Add(u.TotalDistance, w)) <= 0) return;
+
+            v.TotalDistance = C.Add(u.TotalDistance, w);
+            v.Predecessor = u;
         }
-
-
+        
         /// <summary>
         /// Performs Dijkstra's Single Shortest Path algorithm on a supplied graph. 
         /// (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
@@ -90,29 +103,28 @@ namespace Graphs
         /// <returns>The shortest path from the source to the target.</returns>
         public List<Node<TCost, TValue>> DijkstraSingleShortestPath()
         {
-            MinHeap.BuildHeap();
+            _minHeap.BuildHeap();
 
-            while (MinHeap.Size() != 0)
+            while (_minHeap.Size() != 0)
             {
-                var u = MinHeap.ExtractMin();
-                //var uAdj = Adjacencies[u];
+                var u = _minHeap.ExtractMin();
 
-                var valueOfNodeToLookFor = u.Value;
-
-                Console.WriteLine(valueOfNodeToLookFor);
-
-                var uAdj = u.Edges;
-                
-                foreach (var adj in uAdj)
+                foreach (var adj in u.Edges)
                 {
                     var v = adj.To;
                     Relax(u, v);
                 }
-
-                u = null;
             }
-            
-            var currentNode = Nodes.Find(n => n.Equals(TargetNode));
+            BacktrackPath();
+            return _shortestPath;
+        }
+
+        /// <summary>
+        /// Backtracks the path.
+        /// </summary>
+        private void BacktrackPath()
+        {
+            var currentNode = _nodes.Find(n => n.Equals(_targetNode));
             ShortestPath.Add(currentNode);
 
             while (currentNode.Predecessor != null)
@@ -123,8 +135,7 @@ namespace Graphs
                 currentNode = currentNode.Predecessor;
             }
             ShortestPath.Reverse();
-
-            return ShortestPath;
         }
+
     }
 }

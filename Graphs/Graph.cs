@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using static Graphs.GraphType;
 
 namespace Graphs
@@ -10,16 +11,28 @@ namespace Graphs
 
         public GraphType GraphType { get; private set; }
         public bool GraphIsDirected { get; private set; }
-        public Node<TCost, string> Source { get; set; }
-        public Node<TCost, string> Target { get; set; }
-        public List<Node<TCost, TValue>> Nodes { get; private set; }
-        public List<Edge<TCost, TValue>> Edges { get; private set; }
 
+        public List<Node<TCost, TValue>> Nodes
+        {
+            get => _nodes;
+            private set => _nodes = value;
+        }
 
+        public List<Edge<TCost, TValue>> Edges
+        {
+            get => Nodes.SelectMany(x => x.Edges).ToList();
+            private set => _edges = value;
+        }
+
+        private List<Node<TCost, TValue>> _nodes { get; set; }
+        private List<Edge<TCost, TValue>> _edges { get; set; }
+        
         public Graph()
         {
             this.GraphType = Generic;
             this.GraphIsDirected = true;
+            this.Nodes = new List<Node<TCost, TValue>>();
+            this._edges = new List<Edge<TCost, TValue>>();
         }
 
         public Graph(GraphType type) : this()
@@ -36,6 +49,12 @@ namespace Graphs
         {
             this.GraphType = type;
             this.GraphIsDirected = directed;
+        }
+
+        public Graph(GraphType type, bool directed, List<Node<TCost, TValue>> nodes) : this(type, directed)
+        {
+            this.Nodes = nodes;
+            this.Edges = new List<Edge<TCost, TValue>>();
         }
     }
 }

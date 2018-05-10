@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Graphs")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("DamsboGraphs")]
+[assembly: AssemblyDescription("DO NOT DOWNLOAD! This is a testing package to see how Nuget even works.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("As-if Productions LLC")]
 [assembly: AssemblyProduct("Graphs")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
