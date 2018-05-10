@@ -8,53 +8,54 @@ namespace Graphs
     public class Graph<TCost, TValue> where TCost : struct, IComparable
     {
         // https://github.com/UndyingJellyfish/Elderlearn/tree/0a8f18273d26095abb2a0b68cf4cfccc35fdef5b/UserMatching
-
-        public GraphType GraphType { get; private set; }
+        
         public bool GraphIsDirected { get; private set; }
 
+        public Node<TCost, TValue> SourceNode
+        {
+            get => _source;
+            set => _source = value;
+        }
+        public Node<TCost, TValue> TargetNode
+        {
+            get => _target;
+            set => _target = value;
+        }
         public List<Node<TCost, TValue>> Nodes
         {
             get => _nodes;
-            private set => _nodes = value;
+            set => _nodes = value;
         }
-
-        public List<Edge<TCost, TValue>> Edges
-        {
-            get => Nodes.SelectMany(x => x.Edges).ToList();
-            private set => _edges = value;
-        }
-
+        public List<Edge<TCost, TValue>> Edges => Nodes.SelectMany(x => x.OutgoingEdges).ToList();
+        
+        private Node<TCost, TValue> _source { get; set; }
+        private Node<TCost, TValue> _target { get; set; }
         private List<Node<TCost, TValue>> _nodes { get; set; }
         private List<Edge<TCost, TValue>> _edges { get; set; }
         
-        public Graph()
+
+        public Graph(List<Node<TCost, TValue>> nodes)
         {
-            this.GraphType = Generic;
-            this.GraphIsDirected = true;
-            this.Nodes = new List<Node<TCost, TValue>>();
+            this._nodes = nodes;
             this._edges = new List<Edge<TCost, TValue>>();
         }
 
-        public Graph(GraphType type) : this()
-        {
-            this.GraphType = type;
-        }
-
-        public Graph(bool directed) : this()
+        public Graph(bool directed, List<Node<TCost, TValue>> nodes) : this(nodes)
         {
             this.GraphIsDirected = directed;
         }
 
-        public Graph(GraphType type, bool directed)
+        public Graph(List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source, Node<TCost, TValue> target) : this(nodes)
         {
-            this.GraphType = type;
-            this.GraphIsDirected = directed;
+            this._source = source;
+            this._target = target;
+        }
+        
+        public Graph(bool directed, List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source, Node<TCost, TValue> target) : this(directed, nodes)
+        {
+            this._source = source;
+            this._target = target;
         }
 
-        public Graph(GraphType type, bool directed, List<Node<TCost, TValue>> nodes) : this(type, directed)
-        {
-            this.Nodes = nodes;
-            this.Edges = new List<Edge<TCost, TValue>>();
-        }
     }
 }

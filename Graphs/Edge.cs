@@ -20,28 +20,17 @@ namespace Graphs
         /// <param name="to">Where edge ends.</param>
         /// <param name="cost">Cost of edge.</param>
         /// <param name="directed">Whether the graph is directed or not.</param>
-        public Edge(Node<TCost, TValue> from, Node<TCost, TValue> to, TCost cost, bool directed = true)
+        public Edge(Node<TCost, TValue> from, Node<TCost, TValue> to, TCost cost = default(TCost), bool directed = true)
         {
             this.GraphIsDirected = directed;
             this.From = from;
             this.To = to;
             this.Cost = cost;
         }
-        /*
-        protected Edge(Node<TCost, TValue> from, Node<TCost, TValue> to, TCost tco, TCost tf, bool directed = true) : this(from, to, tco, directed)
-        {
-            this.Flow = tf;
-        }
-
-        protected Edge(Node<TCost, TValue> from, Node<TCost, TValue> to, TCost tco, TCost tf, TCost tca, bool directed = true) : this(from, to, tco, tf, directed)
-        {
-            this.Capacity = tca;
-        }
-        */
 
         public int CompareTo(object obj)
         {
-            return this.CompareTo(obj);
+            return this.CompareTo(obj as Edge<TCost,TValue>);
         }
         
         public int CompareTo(Edge<TCost, TValue> other)

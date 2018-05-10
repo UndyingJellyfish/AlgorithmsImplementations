@@ -40,7 +40,7 @@ namespace Graphs
         private DijkstraShortestPathMinimumHeap<TCost, TValue> _minHeap { get; set; }
         private Calculator<TCost> C => Calculator;
 
-        public SingleShortestPath(List<Node<TCost, TValue>> nodes, Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>> adjacencies, Node<TCost, TValue> source,
+        public SingleShortestPath(List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source,
             Node<TCost, TValue> target, Calculator<TCost> calc)
         {
             this._nodes = nodes;
@@ -61,26 +61,62 @@ namespace Graphs
 
             void InitializeSingleSource()
             {
-                this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(nodes);
+                this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(_nodes);
                 foreach (var v in _nodes)
                 {
                     v.Predecessor = null;
                 }
                 _nodes.Find(n => n.Equals(_sourceNode)).SetTotalDistanceAsDefaultValue();
 
-                foreach (var pair in adjacencies)
-                {
-                    var u = pair.Key;
-                    var edges = pair.Value;
-                    foreach (var edge in edges)
-                    {
-                        u.AddEdge(edge);
-                    }
-                }
             }
+
             InitializeSingleSource();
         }
+
+        public SingleShortestPath(Graph<TCost,TValue> graph ,Calculator<TCost> calc)
+        {
+            this._nodes = graph.Nodes;
+            this._sourceNode = graph.SourceNode;
+            this._targetNode = graph.TargetNode;
+            this._calculator = calc;
+            this._shortestPath = new List<Node<TCost, TValue>>();
+
+            // add source and target to node list if they don't exist in list
+            if (_nodes.Find(x => x.Equals(_sourceNode)) is null)
+            {
+                _nodes.Add(_sourceNode);
+            }
+            if (_nodes.Find(x => x.Equals(_targetNode)) is null)
+            {
+                _nodes.Add(_targetNode);
+            }
+
+            var adjacencies = new Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>>();
+            foreach (var edge in graph.Edges)
+            {
+                if (!adjacencies.ContainsKey(edge.From))
+                {
+                    adjacencies.Add(edge.From, new List<Edge<TCost,TValue>>());
+                }
+
+                adjacencies[edge.From].Add(edge);
+            }
+
+            void InitializeSingleSource()
+            {
+                this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(_nodes);
+                foreach (var v in _nodes)
+                {
+                    v.Predecessor = null;
+                }
+                _nodes.Find(n => n.Equals(_sourceNode)).SetTotalDistanceAsDefaultValue();
+            }
+
+            InitializeSingleSource();
+        }
+
         
+
         /// <summary>
         /// Relaxes the node we're "standing in". (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
         /// </summary>
@@ -88,7 +124,7 @@ namespace Graphs
         /// <param name="v">The potential optimizable target</param>
         private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v)
         {
-            var w = u.Edges.Find(e => e.To.Equals(v)).Cost;
+            var w = u.OutgoingEdges.Find(e => e.To.Equals(v)).Cost;
 
             if (v.TotalDistance.CompareTo(C.Add(u.TotalDistance, w)) <= 0) return;
 
@@ -109,7 +145,7 @@ namespace Graphs
             {
                 var u = _minHeap.ExtractMin();
 
-                foreach (var adj in u.Edges)
+                foreach (var adj in u.OutgoingEdges)
                 {
                     var v = adj.To;
                     Relax(u, v);
@@ -131,10 +167,13 @@ namespace Graphs
             {
                 // trace our path backwards through the predecessors until a predecessor is undefined
                 // the only node on the path without a predecessor is the source
+                if (ShortestPath.Contains(currentNode.Predecessor)) throw new Exception("Cycle in shortest path detected at node: " + currentNode);
+
                 ShortestPath.Add(currentNode.Predecessor);
                 currentNode = currentNode.Predecessor;
             }
             ShortestPath.Reverse();
+
         }
 
     }

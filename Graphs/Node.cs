@@ -3,17 +3,16 @@ using System.Collections.Generic;
 
 namespace Graphs
 {
-    // 
     public class Node<TCost, TValue> : IEquatable<Node<TCost, TValue>> where TCost : struct, IComparable
     {
         public TValue Value { get; set; }
-        public List<Edge<TCost, TValue>> Edges { get; set; }
+        public List<Edge<TCost, TValue>> OutgoingEdges { get; set; }
         public TCost TotalDistance { get; set; }
         public Node<TCost, TValue> Predecessor { get; set; }
         
         public Node(TValue val)
         {
-            Edges = new List<Edge<TCost, TValue>>();
+            OutgoingEdges = new List<Edge<TCost, TValue>>();
             Value = val;
             SetTotalDistanceAsMaxValue();
             Predecessor = null;
@@ -21,9 +20,9 @@ namespace Graphs
 
         public bool TryAddEdge(Edge<TCost, TValue> edge)
         {
-            if (Edges.Exists(x => x.Equals(edge))) return false;
+            if (OutgoingEdges.Exists(x => x.Equals(edge))) return false;
 
-            Edges.Add(edge);
+            OutgoingEdges.Add(edge);
             return true;
         }
 
@@ -31,7 +30,6 @@ namespace Graphs
         {
             if (!TryAddEdge(edge)) throw new Exception("Edge is already added, cannot add same edge twice.");
         }
-
 
         public void SetTotalDistanceAsMaxValue()
         {
@@ -42,54 +40,6 @@ namespace Graphs
             var temp = typeof(TCost).GetField("MaxValue").GetValue(null);
 
             TotalDistance = (TCost) Convert.ChangeType(temp, typeof(TCost));
-
-            #region Possibly useless code
-            /*
-            var distanceType = typeof(TCost).ToString();
-            switch (distanceType)
-            {
-                case "sbyte":
-                    TotalDistance = (TCost) Convert.ChangeType(sbyte.MaxValue, typeof(TCost));
-                    break;
-                case "byte":
-                    TotalDistance = (TCost) Convert.ChangeType(byte.MaxValue, typeof(TCost));
-                    break;
-                case "char":
-                    TotalDistance = (TCost) Convert.ChangeType(char.MaxValue, typeof(TCost));
-                    break;
-                case "short":
-                    TotalDistance = (TCost) Convert.ChangeType(short.MaxValue, typeof(TCost));
-                    break;
-                case "ushort":
-                    TotalDistance = (TCost) Convert.ChangeType(ushort.MaxValue, typeof(TCost));
-                    break;
-                case "int":
-                    TotalDistance = (TCost) Convert.ChangeType(int.MaxValue, typeof(TCost));
-                    break;
-                case "unit":
-                    TotalDistance = (TCost) Convert.ChangeType(uint.MaxValue, typeof(TCost));
-                    break;
-                case "long":
-                    TotalDistance = (TCost) Convert.ChangeType(long.MaxValue, typeof(TCost));
-                    break;
-                case "ulong":
-                    TotalDistance = (TCost) Convert.ChangeType(ulong.MaxValue, typeof(TCost));
-                    break;
-                case "float":
-                    TotalDistance = (TCost) Convert.ChangeType(float.MaxValue, typeof(TCost));
-                    break;
-                case "double":
-                    TotalDistance = (TCost) Convert.ChangeType(double.MaxValue, typeof(TCost));
-                    break;
-                case "decimal":
-                    TotalDistance = (TCost) Convert.ChangeType(decimal.MaxValue, typeof(TCost));
-                    break;
-                default:
-                    throw new InvalidCastException("Could not find a struct that matched. Check the type constraints.");
-            }
-            */
-            #endregion
-
         }
 
         public void SetTotalDistanceAsDefaultValue()
@@ -112,7 +62,7 @@ namespace Graphs
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
-            return EqualityComparer<TValue>.Default.Equals(Value, other.Value) && Equals(Edges, other.Edges) && TotalDistance.Equals(other.TotalDistance) && Equals(Predecessor, other.Predecessor);
+            return EqualityComparer<TValue>.Default.Equals(Value, other.Value) && Equals(OutgoingEdges, other.OutgoingEdges) && TotalDistance.Equals(other.TotalDistance) && Equals(Predecessor, other.Predecessor);
         }
 
         public override bool Equals(object obj)
@@ -127,7 +77,7 @@ namespace Graphs
             unchecked
             {
                 var hashCode = EqualityComparer<TValue>.Default.GetHashCode(Value);
-                hashCode = (hashCode * 397) ^ Edges.GetHashCode();
+                hashCode = (hashCode * 397) ^ OutgoingEdges.GetHashCode();
                 hashCode = (hashCode * 397) ^ TotalDistance.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Predecessor != null ? Predecessor.GetHashCode() : 0);
                 return hashCode;
