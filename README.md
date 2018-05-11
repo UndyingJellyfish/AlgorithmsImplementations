@@ -5,5 +5,4 @@ These implementations are somewhat naive in most cases, and should probably be r
 
 ## Current projects
   1. Improving Binary Search Trees and properly implementing Red-black Trees, 2-3-4 Trees and B-trees.
-  2. Writing tests and documentation for the existing codebase, specifically Minimum Spanning Trees, Quick Sort, Radix Sort and Longest Common Subsequence.
-  3. Create a generic implementation of Dijkstras solution to the Single Shortest Path Problem using the existing Calculator<T> implementations.
+  2. Writing tests and documentation for the existing codebase, specifically Dijkstras Shortest Path, Minimum Spanning Trees, Quick Sort, Radix Sort and Longest Common Subsequence.
