@@ -11,8 +11,6 @@ namespace Graphs
     /// </summary>
     public class SingleShortestPath<TCost, TValue> where TCost : struct, IComparable
     {
-        public Graph<TCost,TValue> Graph { get; set; } // TODO: ACTUALLY USE THIS
-        
         public List<Node<TCost, TValue>> Nodes
         {
             get => _nodes;
@@ -43,12 +41,16 @@ namespace Graphs
         public SingleShortestPath(List<Node<TCost, TValue>> nodes, Node<TCost, TValue> source,
             Node<TCost, TValue> target, Calculator<TCost> calc)
         {
+            // initialize fields using params
             this._nodes = nodes;
             this._sourceNode = source;
             this._targetNode = target;
             this._calculator = calc;
-            this._shortestPath = new List<Node<TCost, TValue>>();
 
+            // initialize fields that has no corresponding param
+            this._shortestPath = new List<Node<TCost, TValue>>();
+            this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(_nodes);
+            
             // add source and target to node list if they don't exist in list
             if (_nodes.Find(x => x.Equals(_sourceNode)) is null)
             {
@@ -58,29 +60,22 @@ namespace Graphs
             {
                 _nodes.Add(_targetNode);
             }
-
-            void InitializeSingleSource()
-            {
-                this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(_nodes);
-                foreach (var v in _nodes)
-                {
-                    v.Predecessor = null;
-                }
-                _nodes.Find(n => n.Equals(_sourceNode)).SetTotalDistanceAsDefaultValue();
-
-            }
-
+            
             InitializeSingleSource();
         }
 
         public SingleShortestPath(Graph<TCost,TValue> graph ,Calculator<TCost> calc)
         {
+            // deconstruct the graph object and initialize fields
             this._nodes = graph.Nodes;
             this._sourceNode = graph.SourceNode;
             this._targetNode = graph.TargetNode;
             this._calculator = calc;
-            this._shortestPath = new List<Node<TCost, TValue>>();
 
+            // initialize fields that has no corresponding param
+            this._shortestPath = new List<Node<TCost, TValue>>();
+            this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(_nodes);
+            
             // add source and target to node list if they don't exist in list
             if (_nodes.Find(x => x.Equals(_sourceNode)) is null)
             {
@@ -90,32 +85,27 @@ namespace Graphs
             {
                 _nodes.Add(_targetNode);
             }
-
-            var adjacencies = new Dictionary<Node<TCost, TValue>, List<Edge<TCost, TValue>>>();
-            foreach (var edge in graph.Edges)
-            {
-                if (!adjacencies.ContainsKey(edge.From))
-                {
-                    adjacencies.Add(edge.From, new List<Edge<TCost,TValue>>());
-                }
-
-                adjacencies[edge.From].Add(edge);
-            }
-
-            void InitializeSingleSource()
-            {
-                this._minHeap = new DijkstraShortestPathMinimumHeap<TCost, TValue>(_nodes);
-                foreach (var v in _nodes)
-                {
-                    v.Predecessor = null;
-                }
-                _nodes.Find(n => n.Equals(_sourceNode)).SetTotalDistanceAsDefaultValue();
-            }
-
+            
             InitializeSingleSource();
         }
 
-        
+        /// <summary>
+        /// Initializes the single source shortest path graph. 
+        /// (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
+        /// </summary>
+        private void InitializeSingleSource()
+        {
+            foreach (var v in _nodes)
+            {
+                // each node must have no predecessor and be initialized with the highest possible maximum distance
+                v.Predecessor = null; 
+                v.SetTotalDistanceAsMaxValue();
+            }
+            // the distance to the source node is set to default(TCost) which is some variation of 0
+            // this is done such that the final distance from the source to target is the sum of costs of all edges connecting the path
+            _nodes.Find(n => n.Equals(_sourceNode)).SetTotalDistanceAsDefaultValue();
+        }
+
 
         /// <summary>
         /// Relaxes the node we're "standing in". (Cormen, Leiserson, Rivst, Stein; "Introduction to Algorithms"; 3rd edition, 2009)
@@ -156,25 +146,32 @@ namespace Graphs
         }
 
         /// <summary>
-        /// Backtracks the path.
+        /// Backtracks the path going from target to source via each node's predecessor.
         /// </summary>
         private void BacktrackPath()
         {
             var currentNode = _nodes.Find(n => n.Equals(_targetNode));
+            if (currentNode is null)
+            {
+                throw new Exception("Backtracking failed. The graph does not contain a valid target node.");
+            }
             ShortestPath.Add(currentNode);
 
+            // trace our path backwards through the predecessors until a predecessor is undefined
+            // the only node on the path without a predecessor is the source
             while (currentNode.Predecessor != null)
             {
-                // trace our path backwards through the predecessors until a predecessor is undefined
-                // the only node on the path without a predecessor is the source
-                if (ShortestPath.Contains(currentNode.Predecessor)) throw new Exception("Cycle in shortest path detected at node: " + currentNode);
+                if (ShortestPath.Contains(currentNode.Predecessor))
+                {
+                    // is a node's predecessor is already contained in the shortest path there is a cycle
+                    throw new Exception("Backtracking failed. Cycle in shortest path detected at node: " + currentNode);
+                }
 
+                // for every step we add the currentNode's predecessor and step onto that predecessor as the new currentNode
                 ShortestPath.Add(currentNode.Predecessor);
                 currentNode = currentNode.Predecessor;
             }
             ShortestPath.Reverse();
-
         }
-
     }
 }

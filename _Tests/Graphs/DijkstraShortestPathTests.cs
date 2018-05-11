@@ -12,17 +12,20 @@ namespace _Tests.Sorting
         [TestMethod]
         public void TestDistanceAndLengthWithIntsNodeListParams()
         {
-            var ns = new Node<int, char>('s');
+            var ns = new Node<int, char>('s'); // source node
             var n1 = new Node<int, char>('1');
             var n2 = new Node<int, char>('2');
             var n3 = new Node<int, char>('3');
             var n4 = new Node<int, char>('4');
             var n5 = new Node<int, char>('5');
             var n6 = new Node<int, char>('6');
-            var nt = new Node<int, char>('t');
+            var nt = new Node<int, char>('t'); // target node
 
             var nodes = new List<Node<int, char>> { ns, n1, n2, n3, n4, n5, n6, nt };
 
+            // naming scheme is "exy" where "e" is short for "edge", 
+            // "x" corresponds to the origin node 
+            // and "y" corresponds to the destination node
             var es1 = new Edge<int, char>(ns, n1, 5);
             var es3 = new Edge<int, char>(ns, n3, 8);
             var es6 = new Edge<int, char>(ns, n6, 9);
@@ -38,9 +41,7 @@ namespace _Tests.Sorting
             var e63 = new Edge<int, char>(n6, n3, 5);
             var e65 = new Edge<int, char>(n6, n5, 4);
             var e6t = new Edge<int, char>(n6, nt, 20);
-
-            var edges = new List<Edge<int, char>> { es1, es3, es6, e12, e13, e14, e2t, e34, e35, e4t, e54, e5t, e63, e65, e6t };
-
+            
             ns.AddEdge(es1);
             ns.AddEdge(es3);
             ns.AddEdge(es6);
@@ -57,7 +58,6 @@ namespace _Tests.Sorting
             n6.AddEdge(e65);
             n6.AddEdge(e6t);
 
-            var graph = new Graph<int, char>(nodes, ns, nt);
             var calc = new Int32.Calculator();
 
             var expected = new List<Node<int, char>> { ns, n6, n5, n4, nt };
@@ -73,17 +73,20 @@ namespace _Tests.Sorting
         [TestMethod]
         public void TestDistanceAndLengthWithIntsGraphParam()
         {
-            var ns = new Node<int, char>('s');
+            var ns = new Node<int, char>('s'); // source node
             var n1 = new Node<int, char>('1');
             var n2 = new Node<int, char>('2');
             var n3 = new Node<int, char>('3');
             var n4 = new Node<int, char>('4');
             var n5 = new Node<int, char>('5');
             var n6 = new Node<int, char>('6');
-            var nt = new Node<int, char>('t');
+            var nt = new Node<int, char>('t'); // target node
 
             var nodes = new List<Node<int, char>> { ns, n1, n2, n3, n4, n5, n6, nt };
 
+            // naming scheme is "exy" where "e" is short for "edge", 
+            // "x" corresponds to the origin node 
+            // and "y" corresponds to the destination node
             var es1 = new Edge<int, char>(ns, n1, 5);
             var es3 = new Edge<int, char>(ns, n3, 8);
             var es6 = new Edge<int, char>(ns, n6, 9);
@@ -99,9 +102,7 @@ namespace _Tests.Sorting
             var e63 = new Edge<int, char>(n6, n3, 5);
             var e65 = new Edge<int, char>(n6, n5, 4);
             var e6t = new Edge<int, char>(n6, nt, 20);
-
-            var edges = new List<Edge<int, char>> { es1, es3, es6, e12, e13, e14, e2t, e34, e35, e4t, e54, e5t, e63, e65, e6t };
-
+            
             ns.AddEdge(es1);
             ns.AddEdge(es3);
             ns.AddEdge(es6);

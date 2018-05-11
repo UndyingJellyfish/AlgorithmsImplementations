@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 using System.Threading.Tasks;
+using _Tests;
 
 namespace _MainNamespace
 {
@@ -11,8 +13,9 @@ namespace _MainNamespace
     {
         static void Main(string[] args)
         {
-            int V = 9;
             /*
+            int V = 9;
+            
             {
                 {0, 2, 0, 6, 0},
                 {2, 0, 3, 8, 5},
@@ -20,7 +23,7 @@ namespace _MainNamespace
                 {6, 8, 0, 0, 9},
                 {0, 5, 7, 9, 0}
             };
-            */
+            
             MinimumSpanningTrees.Adjacency adjacency = new MinimumSpanningTrees.Adjacency(9);
 
             #region Adjacencies
@@ -57,11 +60,13 @@ namespace _MainNamespace
             var adjacencyMatrix = TestingDataMst.CreateTestingAdjacencyMatrix();
             
             MinimumSpanningTrees.Pair[] kruskalMST = new MinimumSpanningTrees.Pair[V];
-            Console.WriteLine("Kruskal MST:");
+            Console.WriteLine((Kruskal MST:");
             MinimumSpanningTrees.KruskalsAlgorithm.CalculateAndPrintKruskalMst(V, adjacency, out kruskalMST);
 
             Console.WriteLine("Prim MST:");
             MinimumSpanningTrees.PrimsAlgorithm.PrimMst(adjacencyMatrix, V);
+            */
+
 
             Console.ReadLine();
         }

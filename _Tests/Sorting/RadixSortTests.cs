@@ -46,6 +46,7 @@ namespace _Tests.Sorting
         [TestMethod]
         public void TestSortingCharsGeneric()
         {
+            // TODO: Not yet implemented behaviour for non-integral type sorting
             var chars = new List<char> { 'h', 'q', 'a', 'y', 'n' };
             var radixSort = new RadixSort<char>(new Char.Calculator());
             chars = radixSort.Sort(chars);
@@ -123,6 +124,7 @@ namespace _Tests.Sorting
         [TestMethod]
         public void TestSortingFloatsGeneric()
         {
+            // TODO: Not yet implemented behaviour for non-integral type sorting
             var floats = new List<float> { 3, 5, 1, 8, 2 };
             var radixSort = new RadixSort<float>(new Float.Calculator());
             floats = radixSort.Sort(floats);
@@ -134,6 +136,7 @@ namespace _Tests.Sorting
         [TestMethod]
         public void TestSortingDoublesGeneric()
         {
+            // TODO: Not yet implemented behaviour for non-integral type sorting
             var doubles = new List<double> { 3, 5, 1, 8, 2 };
             var radixSort = new RadixSort<double>(new Double.Calculator());
             doubles = radixSort.Sort(doubles);
@@ -145,6 +148,7 @@ namespace _Tests.Sorting
         [TestMethod]
         public void TestSortingDecimalsGeneric()
         {
+            // TODO: Not yet implemented behaviour for non-integral type sorting
             var decimals = new List<decimal> { 3, 5, 1, 8, 2 };
             var radixSort = new RadixSort<decimal>(new Decimal.Calculator());
             decimals = radixSort.Sort(decimals);
@@ -152,5 +156,36 @@ namespace _Tests.Sorting
             Assert.AreEqual(expected.Count, decimals.Count);
             CollectionAssert.AreEqual(expected, decimals);
         }
+
+        [TestMethod]
+        public void TestSortingIntsVaryingSizesGeneric()
+        {
+            var rnd = new Random(2141);
+
+
+            for (int i = 5; i <= 8; i++)
+            {
+                var amount = (int) Math.Pow(2, i);
+                var ints = new List<int>(amount);
+                
+                for (int j = 0; j < ints.Capacity; j++)
+                {
+                    ints.Add(rnd.Next());
+                }
+                var expected = new List<int>(amount);
+                expected.Sort();
+
+                var radixSort = new RadixSort<int>(new Int32.Calculator());
+                ints = radixSort.Sort(ints);
+                
+                Assert.AreEqual(expected.Count, ints.Count);
+                CollectionAssert.AreEqual(expected, ints);
+
+            }
+
+            
+            
+        }
+
     }
 }
