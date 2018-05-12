@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Graphs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace _Tests.Sorting
+namespace _Tests.Graphs
 {
     [TestClass]
     public class UnitTestDijkstras
@@ -95,7 +93,7 @@ namespace _Tests.Sorting
         }
 
         [TestMethod]
-        public void TestDistanceAndLengthWithIntsNodeListParams()
+        public void TestComplexWithIntsNodeListParams()
         {
             // naming scheme for nodes is "nx" where
             // "n" is short for node and "x" is the char value
@@ -159,7 +157,7 @@ namespace _Tests.Sorting
         }
 
         [TestMethod]
-        public void TestDistanceAndLengthWithIntsGraphParam()
+        public void TestComplexGraphWithIntsGraphParam()
         {
             // naming scheme for nodes is "nx" where
             // "n" is short for node and "x" is the char value
