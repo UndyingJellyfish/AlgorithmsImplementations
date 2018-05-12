@@ -10,8 +10,95 @@ namespace _Tests.Sorting
     public class UnitTestDijkstras
     {
         [TestMethod]
+        public void TestSourceTargetIsSameNode()
+        {
+            // naming scheme for nodes is "nx" where
+            // "n" is short for node and "x" is the char value
+            var nst = new Node<int, char>('s'); // source node and target node
+            var nodes = new List<Node<int, char>> { nst };
+            var calc = new Int32.Calculator();
+            var expectedPath = new List<Node<int, char>> { nst };
+            var expectedLength = 0; // no movement means no costs
+            var dijkstra = new SingleShortestPath<int, char>(nodes, nst, nst, calc);
+
+            dijkstra.DijkstraSingleShortestPath();
+            var result = dijkstra.ShortestPath;
+            var length = dijkstra.ShortestPathDistance;
+
+            Assert.AreEqual(expectedLength, length);
+            CollectionAssert.AreEqual(expectedPath, result);
+        }
+
+        [TestMethod]
+        public void TestSourceAndTargetIsDirectlyConnected()
+        {
+            // naming scheme for nodes is "nx" where
+            // "n" is short for node and "x" is the char value
+            var ns = new Node<int, char>('s'); // source node
+            var nt = new Node<int, char>('t'); // target node
+            var nodes = new List<Node<int, char>> { ns, nt };
+
+            // naming scheme for edges is "exy" 
+            // where "e" is short for "edge", 
+            // "x" corresponds to the origin node and
+            // "y" corresponds to the destination node
+            var est = new Edge<int, char>(ns, nt, 100);
+            ns.AddEdge(est);
+            var calc = new Int32.Calculator();
+            var expectedPath = new List<Node<int, char>> { ns, nt };
+            var expectedLength = est.Cost;
+            var dijkstra = new SingleShortestPath<int, char>(nodes, ns, nt, calc);
+
+            dijkstra.DijkstraSingleShortestPath();
+            var result = dijkstra.ShortestPath;
+            var length = dijkstra.ShortestPathDistance;
+
+            Assert.AreEqual(expectedLength, length);
+            CollectionAssert.AreEqual(expectedPath, result);
+        }
+
+        [TestMethod]
+        public void TestSourceHasSimplePathToTarget()
+        {
+            // naming scheme for nodes is "nx" where
+            // "n" is short for node and "x" is the char value
+            var ns = new Node<int, char>('s'); // source node
+            var n1 = new Node<int, char>('1');
+            var n2 = new Node<int, char>('2');
+            var n3 = new Node<int, char>('3');
+            var nt= new Node<int, char>('t'); // source node
+            var nodes = new List<Node<int, char>> { ns, n1, n2, n3, nt };
+            // naming scheme for edges is "exy" 
+            // where "e" is short for "edge", 
+            // "x" corresponds to the origin node and
+            // "y" corresponds to the destination node
+            var es1 = new Edge<int, char>(ns, n1, 1);
+            var e12 = new Edge<int, char>(n1, n2, 2);
+            var e23 = new Edge<int, char>(n2, n3, 3);
+            var e3t = new Edge<int, char>(n3, nt, 4);
+            ns.AddEdge(es1);
+            n1.AddEdge(e12);
+            n2.AddEdge(e23);
+            n3.AddEdge(e3t);
+            var calc = new Int32.Calculator();
+            // simple path through a long thin line of nodes
+            var expectedPath = new List<Node<int, char>> { ns, n1, n2, n3, nt };
+            var expectedLength = es1.Cost + e12.Cost + e23.Cost + e3t.Cost;
+            var dijkstra = new SingleShortestPath<int, char>(nodes, ns, nt, calc);
+
+            dijkstra.DijkstraSingleShortestPath();
+            var result = dijkstra.ShortestPath;
+            var length = dijkstra.ShortestPathDistance;
+
+            Assert.AreEqual(expectedLength, length);
+            CollectionAssert.AreEqual(expectedPath, result);
+        }
+
+        [TestMethod]
         public void TestDistanceAndLengthWithIntsNodeListParams()
         {
+            // naming scheme for nodes is "nx" where
+            // "n" is short for node and "x" is the char value
             var ns = new Node<int, char>('s'); // source node
             var n1 = new Node<int, char>('1');
             var n2 = new Node<int, char>('2');
@@ -20,12 +107,12 @@ namespace _Tests.Sorting
             var n5 = new Node<int, char>('5');
             var n6 = new Node<int, char>('6');
             var nt = new Node<int, char>('t'); // target node
-
             var nodes = new List<Node<int, char>> { ns, n1, n2, n3, n4, n5, n6, nt };
 
-            // naming scheme is "exy" where "e" is short for "edge", 
-            // "x" corresponds to the origin node 
-            // and "y" corresponds to the destination node
+            // naming scheme for edges is "exy" 
+            // where "e" is short for "edge", 
+            // "x" corresponds to the origin node and
+            // "y" corresponds to the destination node
             var es1 = new Edge<int, char>(ns, n1, 5);
             var es3 = new Edge<int, char>(ns, n3, 8);
             var es6 = new Edge<int, char>(ns, n6, 9);
@@ -59,20 +146,23 @@ namespace _Tests.Sorting
             n6.AddEdge(e6t);
 
             var calc = new Int32.Calculator();
-
-            var expected = new List<Node<int, char>> { ns, n6, n5, n4, nt };
-
+            var expectedPath = new List<Node<int, char>> { ns, n6, n5, n4, nt };
+            var expectedCost = es6.Cost + e65.Cost + e54.Cost + e4t.Cost;
             var dijkstra = new SingleShortestPath<int, char>(nodes, ns, nt, calc);
+
             dijkstra.DijkstraSingleShortestPath();
             var result = dijkstra.ShortestPath;
             var length = dijkstra.ShortestPathDistance;
-            Assert.AreEqual(25, length);
-            CollectionAssert.AreEqual(result, expected);
+
+            Assert.AreEqual(expectedCost, length);
+            CollectionAssert.AreEqual(expectedPath, result);
         }
 
         [TestMethod]
         public void TestDistanceAndLengthWithIntsGraphParam()
         {
+            // naming scheme for nodes is "nx" where
+            // "n" is short for node and "x" is the char value
             var ns = new Node<int, char>('s'); // source node
             var n1 = new Node<int, char>('1');
             var n2 = new Node<int, char>('2');
@@ -84,9 +174,10 @@ namespace _Tests.Sorting
 
             var nodes = new List<Node<int, char>> { ns, n1, n2, n3, n4, n5, n6, nt };
 
-            // naming scheme is "exy" where "e" is short for "edge", 
-            // "x" corresponds to the origin node 
-            // and "y" corresponds to the destination node
+            // naming scheme for edges is "exy" 
+            // where "e" is short for "edge", 
+            // "x" corresponds to the origin node and
+            // "y" corresponds to the destination node
             var es1 = new Edge<int, char>(ns, n1, 5);
             var es3 = new Edge<int, char>(ns, n3, 8);
             var es6 = new Edge<int, char>(ns, n6, 9);
@@ -121,15 +212,16 @@ namespace _Tests.Sorting
 
             var graph = new Graph<int, char>(nodes, ns, nt);
             var calc = new Int32.Calculator();
-
-            var expected = new List<Node<int, char>> { ns, n6, n5, n4, nt };
-
+            var expectedPath = new List<Node<int, char>> { ns, n6, n5, n4, nt };
+            var expectedCost = es6.Cost + e65.Cost + e54.Cost + e4t.Cost;
             var dijkstra = new SingleShortestPath<int, char>(graph, calc);
+
             dijkstra.DijkstraSingleShortestPath();
-            var newResult = dijkstra.ShortestPath;
-            var newLength = dijkstra.ShortestPathDistance;
-            Assert.AreEqual(25, newLength);
-            CollectionAssert.AreEqual(newResult, expected);
+            var result = dijkstra.ShortestPath;
+            var length = dijkstra.ShortestPathDistance;
+            
+            Assert.AreEqual(expectedCost, length);
+            CollectionAssert.AreEqual(expectedPath, result);
         }
 
 
