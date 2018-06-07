@@ -55,12 +55,15 @@ namespace Miscellaneous
 
             var stack = new Stack<BigInteger>();
             stack.Push(m);
+            var skipStack = false;
             while (stack.Count != 0)
             {
-                m = stack.Pop();
-                skipStack:  // I know it's bad practice, but optimization-wise this works well
-                            // the idea being that we don't have to pop anything if we can find
-                            // a well-known value of Ackermann
+                if(!skipStack){
+                    m = stack.Pop();
+                } 
+                skipStack = false;  // I know it's bad practice, but optimization-wise this works well
+                                    // the idea being that we don't have to pop anything if we can find
+                                    // a well-known value of Ackermann
                             
                 /*
                  * typical TV cook cheating, using some very simple permutations in order to reduce stack pressure
@@ -91,13 +94,13 @@ namespace Miscellaneous
                 {
                     --m;
                     n = 1;
-                    goto skipStack; // my eyes are burning, but at least my CPU loves me
+                    skipStack = true; // my eyes are burning, but at least my CPU loves me
                 }
                 else
                 {
                     stack.Push(m - 1);
                     --n;
-                    goto skipStack;
+                    skipStack = true;
                 }
             }
             return n;
