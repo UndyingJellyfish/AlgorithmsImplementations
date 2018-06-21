@@ -7,6 +7,9 @@ namespace _Tests.Graphs
     [TestClass]
     public class UnitTestDijkstras
     {
+        //TODO: USE THESE FOR ILLUSTRATIONS: https://en.wikipedia.org/wiki/Template:Unicode_chart_Arrows
+
+
         [TestMethod]
         public void TestSourceTargetIsSameNode()
         {
@@ -95,6 +98,26 @@ namespace _Tests.Graphs
         [TestMethod]
         public void TestComplexWithIntsNodeListParams()
         {
+            /*
+              (s)------5----->(1)------15---->(2)
+               | \           /   \           ↗ |
+               |  \         /     \         /  |
+               |   8       4       12      3   |
+               |    \     /         \     /    |
+               |     ↘   ↙           ↘   /     |
+               9      (3)------7----->(4)      9
+               |     ↗   \           ↗   \     |
+               |    /     \         /     \    |
+               |   5       6       1       11  |
+               |  /         \     /         \  |
+               ↓ /           ↘   /           ↘ ↓
+              (6)------4----->(5)-----13----->(t)
+
+               Shortest path: s-6-5-4-t
+               Cost: 9 + 4 + 1 + 11 = 25
+
+             */
+
             // naming scheme for nodes is "nx" where
             // "n" is short for node and "x" is the char value
             var ns = new Node<int, char>('s'); // source node
@@ -156,9 +179,31 @@ namespace _Tests.Graphs
             CollectionAssert.AreEqual(expectedPath, result);
         }
 
+
+
         [TestMethod]
         public void TestComplexGraphWithIntsGraphParam()
         {
+            /*
+              (s)------5----->(1)------15---->(2)
+               | \           /   \           ↗ |
+               |  \         /     \         /  |
+               |   8       4       12      3   |
+               |    \     /         \     /    |
+               |     ↘   ↙           ↘   /     |
+               9      (3)------7----->(4)      9
+               |     ↗   \           ↗   \     |
+               |    /     \         /     \    |
+               |   5       6       1       11  |
+               |  /         \     /         \  |
+               ↓ /           ↘   /           ↘ ↓
+              (6)------4----->(5)-----13----->(t)
+
+               Shortest path: s-6-5-4-t
+               Cost: 9 + 4 + 1 + 11 = 25
+
+             */
+
             // naming scheme for nodes is "nx" where
             // "n" is short for node and "x" is the char value
             var ns = new Node<int, char>('s'); // source node
