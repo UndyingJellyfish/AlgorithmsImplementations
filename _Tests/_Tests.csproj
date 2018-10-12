@@ -49,8 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Graphs\DijkstraShortestPathTests.cs" />
-    <Compile Include="Sorting\RadixSortTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -63,10 +61,6 @@
     <ProjectReference Include="..\MinimumSpanningTrees\MinimumSpanningTrees.csproj">
       <Project>{51f73f6c-962d-4d37-8fe3-7503d9ad1926}</Project>
       <Name>MinimumSpanningTrees</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Miscellaneous\Miscellaneous.csproj">
-      <Project>{7d2b1752-0183-4574-aa97-4cd522ab669c}</Project>
-      <Name>Miscellaneous</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sorting\Sorting.csproj">
       <Project>{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}</Project>
@@ -85,7 +79,10 @@
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Graphs\" />
+    <Folder Include="Sorting\" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

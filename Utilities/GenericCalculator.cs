@@ -1,5 +1,6 @@
 ﻿using System;
-namespace Utilities
+
+namespace DamsboSoftware.AlgorithmImplementations.Utilities
 {
     //https://www.codeproject.com/Articles/8531/Using-generics-for-calculations
     public class GenericCalculator<T> where T : IComparable<T>, new()

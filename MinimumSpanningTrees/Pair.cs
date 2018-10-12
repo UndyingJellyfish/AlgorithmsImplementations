@@ -1,4 +1,4 @@
-﻿namespace MinimumSpanningTrees
+﻿namespace DamsboSoftware.AlgorithmImplementations.MinimumSpanningTrees
 {
     public class Pair
     {

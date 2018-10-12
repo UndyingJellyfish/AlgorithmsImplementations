@@ -1,4 +1,4 @@
-﻿namespace Trees
+﻿namespace DamsboSoftware.AlgorithmImplementations.Trees
 {
     enum RotationDirection
     {

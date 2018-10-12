@@ -7,8 +7,8 @@
     <ProjectGuid>{404748A4-EDF4-442D-86D2-8BB090322E39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Graphs</RootNamespace>
-    <AssemblyName>DamsboGraphs</AssemblyName>
+    <RootNamespace>DamsboSoftware.AlgorithmImplementations.Graphs</RootNamespace>
+    <AssemblyName>DamsboSoftware.AlgorithmImplementations.Graphs</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

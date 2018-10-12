@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace Sorting
+namespace DamsboSoftware.AlgorithmImplementations.Sorting
 {
     public class QuickSort<T> where T : struct,  IComparable<T>
     {

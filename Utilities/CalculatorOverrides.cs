@@ -1,8 +1,6 @@
-﻿using Utilities;
-
-//https://www.codeproject.com/Articles/8531/Using-generics-for-calculations
-namespace Utilities
+﻿namespace DamsboSoftware.AlgorithmImplementations.Utilities
 {
+//https://www.codeproject.com/Articles/8531/Using-generics-for-calculations
     public abstract class Calculator<T>
     {
         public abstract T Add(T a, T b);
@@ -10,13 +8,10 @@ namespace Utilities
         public abstract T Mult(T a, T b);
         public abstract T Div(T a, T b);
     }
-}
 
 // All Value types has to implement the abstract Calculator, else you won't get a result
 // Value type overview: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/value-types
 
-namespace SByte
-{
     public class Calculator : Calculator<sbyte>
     {
         public override sbyte Add(sbyte a, sbyte b)
@@ -36,10 +31,7 @@ namespace SByte
             return (sbyte)(a / b);
         }
     }
-}
 
-namespace Byte
-{
     public class Calculator : Calculator<byte>
     {
         public override byte Add(byte a, byte b)
@@ -59,10 +51,7 @@ namespace Byte
             return (byte)(a / b);
         }
     }
-}
 
-namespace Char
-{
     public class Calculator : Calculator<char>
     {
         public override char Add(char a, char b)
@@ -82,10 +71,7 @@ namespace Char
             return (char)(a / b);
         }
     }
-}
 
-namespace Short
-{
     public class Calculator : Calculator<short>
     {
         public override short Add(short a, short b)
@@ -105,10 +91,7 @@ namespace Short
             return (short)(a / b);
         }
     }
-}
 
-namespace UShort
-{
     public class Calculator : Calculator<ushort>
     {
         public override ushort Add(ushort a, ushort b)
@@ -128,10 +111,7 @@ namespace UShort
             return (ushort)(a / b);
         }
     }
-}
 
-namespace Int32
-{
     public class Calculator : Calculator<int>
     {
         public override int Add(int a, int b)
@@ -151,10 +131,7 @@ namespace Int32
             return (int)(a / b);
         }
     }
-}
 
-namespace UInt
-{
     public class Calculator : Calculator<uint>
     {
         public override uint Add(uint a, uint b)
@@ -174,10 +151,7 @@ namespace UInt
             return (uint)(a / b);
         }
     }
-}
 
-namespace Long
-{
     public class Calculator : Calculator<long>
     {
         public override long Add(long a, long b)
@@ -197,10 +171,7 @@ namespace Long
             return (long)(a / b);
         }
     }
-}
 
-namespace ULong
-{
     public class Calculator : Calculator<ulong>
     {
         public override ulong Add(ulong a, ulong b)
@@ -220,10 +191,7 @@ namespace ULong
             return (ulong)(a / b);
         }
     }
-}
 
-namespace Float
-{
     public class Calculator : Calculator<float>
     {
         public override float Add(float a, float b)
@@ -243,10 +211,7 @@ namespace Float
             return (float)(a / b);
         }
     }
-}
 
-namespace Double
-{
     public class Calculator : Calculator<double>
     {
         public override double Add(double a, double b)
@@ -266,10 +231,7 @@ namespace Double
             return (double)(a / b);
         }
     }
-}
 
-namespace Decimal
-{
     public class Calculator : Calculator<decimal>
     {
         public override decimal Add(decimal a, decimal b)

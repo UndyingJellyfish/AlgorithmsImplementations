@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Graphs
+namespace DamsboSoftware.AlgorithmImplementations.Graphs
 {
     public class DijkstraShortestPathMinimumHeap<TCost,TValue> where TCost : struct, IComparable
     {

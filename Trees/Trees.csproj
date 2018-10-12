@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DD4FB56C-C3B7-4D4D-BEB7-F1CBD85682F0}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Trees</RootNamespace>
-    <AssemblyName>Trees</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DamsboSoftware.AlgorithmImplementations.Trees</RootNamespace>
+    <AssemblyName>DamsboSoftware.AlgorithmImplementations.Trees</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

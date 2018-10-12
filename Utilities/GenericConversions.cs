@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utilities
+namespace DamsboSoftware.AlgorithmImplementations.Utilities
 {
     public class GenericConversions<T>
     {

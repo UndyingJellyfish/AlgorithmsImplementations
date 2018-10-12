@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Utilities;
+using DamsboSoftware.AlgorithmImplementations.Utilities;
 
-namespace Graphs
+namespace DamsboSoftware.AlgorithmImplementations.Graphs
 {
     /// <summary>
     /// Calculates the single shortest path in a given graph.

@@ -1,4 +1,4 @@
-﻿namespace Graphs
+﻿namespace DamsboSoftware.AlgorithmImplementations.Graphs
 {
     public enum GraphType
     {

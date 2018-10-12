@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Byte;
-using Utilities;
+using DamsboSoftware.AlgorithmImplementations.Utilities;
 
-namespace Sorting
+namespace DamsboSoftware.AlgorithmImplementations.Sorting
 {
     public class RadixSort
     {

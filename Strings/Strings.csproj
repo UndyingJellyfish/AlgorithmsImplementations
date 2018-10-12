@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FA45BD83-2DA5-47A7-ACE1-950BBAC6D128}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Strings</RootNamespace>
-    <AssemblyName>Strings</AssemblyName>
+    <RootNamespace>DamsboSoftware.AlgorithmImplementations.Strings</RootNamespace>
+    <AssemblyName>DamsboSoftware.AlgorithmImplementations.Strings</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

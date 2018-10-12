@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using Graphs;
+﻿using System;
+using System.Collections.Generic;
+using DamsboSoftware.AlgorithmImplementations.Graphs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace _Tests.Graphs
+namespace DamsboSoftware.AlgorithmImplementations.GraphsTest
 {
     [TestClass]
     public class UnitTestDijkstras
     {
         //TODO: USE THESE FOR ILLUSTRATIONS: https://en.wikipedia.org/wiki/Template:Unicode_chart_Arrows
-
-
+        
         [TestMethod]
         public void TestSourceTargetIsSameNode()
         {
@@ -179,8 +179,6 @@ namespace _Tests.Graphs
             CollectionAssert.AreEqual(expectedPath, result);
         }
 
-
-
         [TestMethod]
         public void TestComplexGraphWithIntsGraphParam()
         {
@@ -266,7 +264,5 @@ namespace _Tests.Graphs
             Assert.AreEqual(expectedCost, length);
             CollectionAssert.AreEqual(expectedPath, result);
         }
-
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
-namespace Graphs
+namespace DamsboSoftware.AlgorithmImplementations.Graphs
 {
 
     public class Edge<TCost, TValue> : IComparable<Edge<TCost, TValue>> where TCost : struct, IComparable

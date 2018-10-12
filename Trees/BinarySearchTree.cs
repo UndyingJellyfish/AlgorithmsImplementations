@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Trees
+namespace DamsboSoftware.AlgorithmImplementations.Trees
 {
     class BinarySearchTree
     // https://stackoverflow.com/questions/10366402/binary-search-tree-in-c-sharp-implementation

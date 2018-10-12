@@ -7,8 +7,8 @@
     <ProjectGuid>{2070113E-1F77-4CBA-B32B-3E92D70C6F6F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sorting</RootNamespace>
-    <AssemblyName>Sorting</AssemblyName>
+    <RootNamespace>DamsboSoftware.AlgorithmImplementations.Sorting</RootNamespace>
+    <AssemblyName>DamsboSoftware.AlgorithmImplementations.Sorting</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using DamsboSoftware.AlgorithmImplementations.Sorting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sorting;
 
-namespace _Tests.Sorting
+namespace DamsboSoftware.AlgorithmImplementations.SortingTests
 {
     [TestClass]
     public class UnitTestRadix
@@ -181,10 +181,6 @@ namespace _Tests.Sorting
                 CollectionAssert.AreEqual(expected, ints);
 
             }
-
-            
-            
         }
-
     }
 }

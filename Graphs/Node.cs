@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Graphs
+namespace DamsboSoftware.AlgorithmImplementations.Graphs
 {
     public class Node<TCost, TValue> : IEquatable<Node<TCost, TValue>> where TCost : struct, IComparable
     {

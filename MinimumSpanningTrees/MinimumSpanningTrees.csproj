@@ -7,8 +7,8 @@
     <ProjectGuid>{51F73F6C-962D-4D37-8FE3-7503D9AD1926}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MinimumSpanningTrees</RootNamespace>
-    <AssemblyName>MinimumSpanningTrees</AssemblyName>
+    <RootNamespace>DamsboSoftware.AlgorithmImplementations.MinimumSpanningTrees</RootNamespace>
+    <AssemblyName>DamsboSoftware.AlgorithmImplementations.MinimumSpanningTrees</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

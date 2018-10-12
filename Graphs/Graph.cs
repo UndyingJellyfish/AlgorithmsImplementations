@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Graphs.GraphType;
 
-namespace Graphs
+namespace DamsboSoftware.AlgorithmImplementations.Graphs
 {
     public class Graph<TCost, TValue> where TCost : struct, IComparable
     {
