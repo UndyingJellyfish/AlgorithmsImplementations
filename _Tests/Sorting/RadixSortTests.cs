@@ -162,7 +162,6 @@ namespace _Tests.Sorting
         {
             var rnd = new Random(2141);
 
-
             for (int i = 5; i <= 8; i++)
             {
                 var amount = (int) Math.Pow(2, i);

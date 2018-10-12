@@ -199,8 +199,8 @@ namespace _Tests.Graphs
                ↓ /           ↘   /           ↘ ↓
               (6)------4----->(5)-----13----->(t)
 
-               Shortest path: s-6-5-4-t
-               Cost: 9 + 4 + 1 + 11 = 25
+               Shortest path:  s - 6 - 5 - 4 - t
+               Cost:           9 + 4 + 1 + 11 = 25
 
              */
 
