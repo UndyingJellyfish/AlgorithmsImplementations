@@ -8,11 +8,11 @@ namespace DamsboSoftware.AlgorithmImplementations.Sorting
         //private const int InsertionCutoff = 8;
         //private const int Median3Cutoff = 3 * InsertionCutoff;
         
-        public static void Sort(IList<T> ints)
+        public static void Sort(IList<T> list)
         {
-            if (ints.Count == 0) return;
-            ScrambleArray(ints, 0, ints.Count - 1);
-            QuicksortIterative(ints);
+            if (list.Count == 0) return;
+            ScrambleArray(list, 0, list.Count - 1);
+            QuicksortIterative(list);
         }
 
         public static void QuicksortIterative(IList<T> ints)
@@ -35,7 +35,6 @@ namespace DamsboSoftware.AlgorithmImplementations.Sorting
                 }
             }
         }
-
 
         private static void ScrambleArray(IList<T> ints, int low, int high)
         {
