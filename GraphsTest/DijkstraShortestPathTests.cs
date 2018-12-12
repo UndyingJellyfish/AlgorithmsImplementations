@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DamsboSoftware.AlgorithmImplementations.Graphs;
+using DamsboSoftware.AlgorithmImplementations.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DamsboSoftware.AlgorithmImplementations.GraphsTest
@@ -17,7 +18,7 @@ namespace DamsboSoftware.AlgorithmImplementations.GraphsTest
             // "n" is short for node and "x" is the char value
             var nst = new Node<int, char>('s'); // source node and target node
             var nodes = new List<Node<int, char>> { nst };
-            var calc = new Int32.Calculator();
+            var calc = new Calculator<int>();
             var expectedPath = new List<Node<int, char>> { nst };
             var expectedLength = 0; // no movement means no costs
             var dijkstra = new SingleShortestPath<int, char>(nodes, nst, nst, calc);
@@ -45,7 +46,7 @@ namespace DamsboSoftware.AlgorithmImplementations.GraphsTest
             // "y" corresponds to the destination node
             var est = new Edge<int, char>(ns, nt, 100);
             ns.AddEdge(est);
-            var calc = new Int32.Calculator();
+            var calc = new Calculator<int>();
             var expectedPath = new List<Node<int, char>> { ns, nt };
             var expectedLength = est.Cost;
             var dijkstra = new SingleShortestPath<int, char>(nodes, ns, nt, calc);
@@ -81,7 +82,7 @@ namespace DamsboSoftware.AlgorithmImplementations.GraphsTest
             n1.AddEdge(e12);
             n2.AddEdge(e23);
             n3.AddEdge(e3t);
-            var calc = new Int32.Calculator();
+            var calc = new Calculator<int>();
             // simple path through a long thin line of nodes
             var expectedPath = new List<Node<int, char>> { ns, n1, n2, n3, nt };
             var expectedLength = es1.Cost + e12.Cost + e23.Cost + e3t.Cost;
@@ -166,7 +167,7 @@ namespace DamsboSoftware.AlgorithmImplementations.GraphsTest
             n6.AddEdge(e65);
             n6.AddEdge(e6t);
 
-            var calc = new Int32.Calculator();
+            var calc = new Calculator<int>();
             var expectedPath = new List<Node<int, char>> { ns, n6, n5, n4, nt };
             var expectedCost = es6.Cost + e65.Cost + e54.Cost + e4t.Cost;
             var dijkstra = new SingleShortestPath<int, char>(nodes, ns, nt, calc);
@@ -252,7 +253,7 @@ namespace DamsboSoftware.AlgorithmImplementations.GraphsTest
             n6.AddEdge(e6t);
 
             var graph = new Graph<int, char>(nodes, ns, nt);
-            var calc = new Int32.Calculator();
+            var calc = new Calculator<int>();
             var expectedPath = new List<Node<int, char>> { ns, n6, n5, n4, nt };
             var expectedCost = es6.Cost + e65.Cost + e54.Cost + e4t.Cost;
             var dijkstra = new SingleShortestPath<int, char>(graph, calc);

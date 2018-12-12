@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatorOverrides.cs" />
+    <Compile Include="ComparisonHelper.cs" />
     <Compile Include="GenericCalculator.cs" />
     <Compile Include="GenericConversions.cs" />
+    <Compile Include="ListHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

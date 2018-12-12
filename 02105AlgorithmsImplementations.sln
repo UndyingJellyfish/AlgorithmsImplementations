@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{74E6495B-A4F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{06497789-65D3-415D-A677-E77159C13371}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphsTest", "GraphsTest\GraphsTest.csproj", "{C8CC99A4-60EC-4AFD-9F90-499456613DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphsTest", "GraphsTest\GraphsTest.csproj", "{C8CC99A4-60EC-4AFD-9F90-499456613DAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingTests", "SortingTests\SortingTests.csproj", "{5C6C5890-44D2-4DB0-A079-AAAF81ECBC30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortingTests", "SortingTests\SortingTests.csproj", "{5C6C5890-44D2-4DB0-A079-AAAF81ECBC30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
