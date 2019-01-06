@@ -15,5 +15,10 @@ namespace DamsboSoftware.AlgorithmImplementations.Utilities
         {
             return !EqualToAtLeastOne(x, xs);
         }
+
+        public static T Max(IEnumerable<T> list)
+        {
+            return list.Max(x => x);
+        }
     }
 }

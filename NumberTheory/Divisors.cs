@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using DamsboSoftware.AlgorithmImplementations.Utilities;
 
 namespace NumberTheory
 {
@@ -20,35 +22,49 @@ namespace NumberTheory
         }
 
 
-        public static int MostDivisibleNumber(int min, int max, out List<int> maxDivisors)
+        public static async Task<int> MostDivisibleNumber(int min, int max)
         {
             // will pick the lowest number if there are more numbers with the same amount of divisors
-            maxDivisors = new List<int>();
-            var mostDivisible = int.MinValue;
-            for (var i = min; i <= max; i++)
-            {
-                var currDivisors = GetListOfDivisors(i);
-                if (currDivisors.Count <= maxDivisors.Count) continue;
 
-                mostDivisible = i;
-                maxDivisors = currDivisors;
+            return await Task.Run(() =>
+            {
+                var maxDivisors = new List<int>();
+                var mostDivisible = int.MinValue;
+                for (var i = min; i <= max; i++)
+                {
+                    Console.WriteLine($"Checking {i}");
+                    var currDivisors = GetListOfDivisors(i);
+                    if (currDivisors.Count <= maxDivisors.Count) continue;
+
+                    mostDivisible = i;
+                    maxDivisors = currDivisors;
+                }
+
+                return mostDivisible;
+            });
+        }
+        public static async Task<int> MostDivisibleNumber(int max)
+        {
+            return await MostDivisibleNumber(0, max);
+        }
+
+        public static async Task<(int md, List<int> divs)> MostDivisibleNumber()
+        {
+            const int batchSize = 100000;
+            var maximum = 4 * batchSize;
+            
+            var tasks = new List<Task<int>>();
+
+            for (var i = 1; i * batchSize <= maximum; i++)
+            {
+                tasks.Add(MostDivisibleNumber((i - 1) * batchSize, i * batchSize));
             }
 
-            return mostDivisible;
-        }
-        public static int MostDivisibleNumber(int min, int max)
-        {
-            return MostDivisibleNumber(min, max, out var ignored);
+            var results = await Task.WhenAll(tasks);
+            var mostDivisible = ComparisonHelper<int>.Max(results);
+
+            return (mostDivisible, GetListOfDivisors(mostDivisible));
         }
 
-        public static int MostDivisibleNumber(int max, out List<int> maxDivisors)
-        {
-            return MostDivisibleNumber(0, max, out maxDivisors);
-        }
-
-        public static int MostDivisibleNumber(int max)
-        {
-            return MostDivisibleNumber(0, max);
-        }
     }
 }
