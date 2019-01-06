@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NumberTheory
 {
@@ -6,8 +7,11 @@ namespace NumberTheory
     {
         public static void Main(string[] args)
         {
-            var (mostDivisible, divisors) = Divisors.MostDivisibleNumber().Result;
-            Console.WriteLine($"Most divisible: {mostDivisible}\nNumber of divisors: {divisors.Count}");
+            var results = Divisors.MostDivisibleNumberNew(10000);
+            foreach (var (n, exponents) in results)
+            {
+                Console.WriteLine($"Possible HCN: {n}");
+            }
 
             Console.ReadLine();
         }
