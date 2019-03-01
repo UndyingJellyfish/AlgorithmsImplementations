@@ -26,9 +26,15 @@ namespace DamsboSoftware.AlgorithmImplementations.Trees
             return Key.ToString();
         }
 
+        public string ToPrettyString()
+        {
+            return $"Key: {this.Key}\tValue: {this.Value}\tColor: {this.Color}";
+        }
+
         public string ToDebugString(bool printToConsole = false)
         {
-            string s = String.Format("Key: {0}\tValue: {1}\tColor: {2}\tLeft color: {3}\tRight color: {4}", this.Key, this.Value, this.Color, this.Left.Color, this.Right.Color);
+            string s =
+                $"Key: {this.Key}\tValue: {this.Value}\tColor: {this.Color}\tLeft color: {this.Left.Color}\tRight color: {this.Right.Color}";
             if (printToConsole) Console.WriteLine(s);
             return s;
         }

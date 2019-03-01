@@ -54,6 +54,7 @@
     <Compile Include="RBNode.cs" />
     <Compile Include="RedBlackTree.cs" />
     <Compile Include="RotationDirection.cs" />
+    <Compile Include="TraversalOrder.cs" />
     <Compile Include="TreeColor.cs" />
     <Compile Include="_234Node.cs" />
   </ItemGroup>
