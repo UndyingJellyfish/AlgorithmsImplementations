@@ -42,7 +42,6 @@ namespace DamsboSoftware.AlgorithmImplementations.Utilities
                     sb.Append(item.ToString());
                     sb.Append(" ");
                 }
-                
             }
 
             output += sb.ToString();
@@ -55,7 +54,20 @@ namespace DamsboSoftware.AlgorithmImplementations.Utilities
             return PrettyPrintList(arr.ToList());
         }
 
+        public static string PrettyPrintMatrix(T[,] mat)
+        {
+            var list = new List<List<T>>();
+            for (var i = 0; i < mat.GetLength(0); i++)
+            {
+                var temp = new T[mat.GetLength(1)];
+                for (int n = 0; n < temp.Length; n++)
+                {
+                    temp[n] = mat[i, n];
+                }
 
-        
+                list.Add(temp.ToList());
+            }
+            return PrettyPrintList(list);
+        }
     }
 }
