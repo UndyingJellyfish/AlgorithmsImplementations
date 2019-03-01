@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DamsboSoftware.AlgorithmImplementations.Utilities;
 
 namespace DamsboSoftware.AlgorithmImplementations.Graphs
@@ -112,7 +113,7 @@ namespace DamsboSoftware.AlgorithmImplementations.Graphs
         /// <param name="v">The potential optimizable target</param>
         private void Relax(Node<TCost, TValue> u, Node<TCost, TValue> v)
         {
-            var w = u.OutgoingEdges.Find(e => e.To.Equals(v)).Cost;
+            var w = u.OutgoingEdges.Single(e => e.To.Equals(v)).Cost;
 
             if (v.TotalDistance.CompareTo(C.Add(u.TotalDistance, w)) <= 0) return;
 
