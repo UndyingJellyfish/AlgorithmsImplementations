@@ -46,6 +46,7 @@
     <Compile Include="DijkstrasShortestPath.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="GraphSearch.cs" />
     <Compile Include="GraphType.cs" />
     <Compile Include="DijkstraShortestPathMinimumHeap.cs" />
     <Compile Include="Node.cs" />

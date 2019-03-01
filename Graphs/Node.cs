@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DamsboSoftware.AlgorithmImplementations.Graphs
 {
     public class Node<TCost, TValue> : IEquatable<Node<TCost, TValue>> where TCost : struct, IComparable
     {
         public TValue Value { get; set; }
-        public List<Edge<TCost, TValue>> OutgoingEdges { get; set; }
+        public IEnumerable<Edge<TCost, TValue>> OutgoingEdges { get; set; }
         public TCost TotalDistance { get; set; }
         public Node<TCost, TValue> Predecessor { get; set; }
         
@@ -20,9 +21,8 @@ namespace DamsboSoftware.AlgorithmImplementations.Graphs
 
         public bool TryAddEdge(Edge<TCost, TValue> edge)
         {
-            if (OutgoingEdges.Exists(x => x.Equals(edge))) return false;
-
-            OutgoingEdges.Add(edge);
+            if (OutgoingEdges.Any(x => x.Equals(edge))) return false;
+            OutgoingEdges.Concat(new List<Edge<TCost, TValue>> { edge });
             return true;
         }
 
