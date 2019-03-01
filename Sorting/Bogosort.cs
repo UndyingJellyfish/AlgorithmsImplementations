@@ -8,10 +8,10 @@ namespace DamsboSoftware.AlgorithmImplementations.Sorting
     {
         public static List<T> PerformSort(List<T> list)
         {
-            while (!ListHelpers<T>.ListIsSorted(list))
+            while (!EnumerableHelper<T>.ListIsSorted(list))
             {
                 var seedGen = new Random();
-                ListHelpers<T>.ScrambleList(list, seedGen.Next());
+                EnumerableHelper<T>.ScrambleList(list, seedGen.Next());
             }
 
             return list;
