@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DamsboSoftware.AlgorithmImplementations.Utilities;
 
 namespace DamsboSoftware.AlgorithmImplementations.Sorting
 {
@@ -8,14 +9,14 @@ namespace DamsboSoftware.AlgorithmImplementations.Sorting
         //private const int InsertionCutoff = 8;
         //private const int Median3Cutoff = 3 * InsertionCutoff;
         
-        public static void Sort(IList<T> list)
+        public static void Sort(List<T> list)
         {
             if (list.Count == 0) return;
-            ScrambleArray(list, 0, list.Count - 1);
+            EnumerableHelper<T>.ScrambleList(list, 0, list.Count - 1);
             QuicksortIterative(list);
         }
 
-        public static void QuicksortIterative(IList<T> ints)
+        public static void QuicksortIterative(List<T> ints)
         {
             var stack = new Stack<int>();
             stack.Push(0);
@@ -33,18 +34,6 @@ namespace DamsboSoftware.AlgorithmImplementations.Sorting
                     stack.Push(pivot + 1);
                     stack.Push(high);
                 }
-            }
-        }
-
-        private static void ScrambleArray(IList<T> ints, int low, int high)
-        {
-            Random rnd = new Random();
-            int n = low;
-
-            for (int i = low; i < high; i++)
-            {
-                n = low + rnd.Next(high - low + 1);
-                Swap(ints, i, n);
             }
         }
 
@@ -71,20 +60,5 @@ namespace DamsboSoftware.AlgorithmImplementations.Sorting
             ints[a] = ints[b];
             ints[b] = temp;
         }
-
-        private static void InsertionSort(IList<T> ints, int low, int high)
-        {
-            for (int i = low; i <= high; i++)
-            for (int j = i; j > low && (ints[j].CompareTo(ints[j - 1]) < 0); j--)
-                Swap(ints, j, j - 1);
-        }
-
-        private static int Median3(IList<T> ints, int i, int j, int k)
-        {
-            return ints[i].CompareTo(ints[j]) < 0 ? 
-                (ints[j].CompareTo(ints[k]) < 0 ? j : ints[i].CompareTo(ints[k]) < 0 ? k : i) : 
-                (ints[k].CompareTo(ints[j]) < 0 ? j : ints[k].CompareTo(ints[i]) < 0 ? k : i);
-        }
-
     }
 }

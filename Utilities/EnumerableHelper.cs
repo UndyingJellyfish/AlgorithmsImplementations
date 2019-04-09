@@ -12,11 +12,16 @@ namespace DamsboSoftware.AlgorithmImplementations.Utilities
         
         public static List<T> ScrambleList(List<T> list, int? seed = null)
         {
+            return ScrambleList(list, 0, list.Count - 1);
+        }
+
+        public static List<T> ScrambleList(List<T> list, int low, int high, int? seed = null)
+        {
             var rnd = seed.HasValue ? new Random(seed.GetValueOrDefault()) : new Random();
 
-            for (var i = 0; i < list.Count; i++)
+            for (var i = low; i < high; i++)
             {
-                var index = rnd.Next(0, list.Count - 1);
+                var index = rnd.Next(low, high);
                 var temp = list[i];
                 list[i] = list[index];
                 list[index] = temp;
