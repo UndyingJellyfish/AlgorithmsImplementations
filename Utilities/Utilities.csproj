@@ -47,6 +47,7 @@
     <Compile Include="GenericConversions.cs" />
     <Compile Include="EnumerableHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeightedRandomNumberGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
